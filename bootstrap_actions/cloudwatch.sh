@@ -49,13 +49,13 @@ cat > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json <<CWAGEN
             "timezone": "UTC"
           },
           {
-            "file_path": "/var/log/adg/acm-cert-retriever.log",
+            "file_path": "/var/log/aws-emr-template-repository/acm-cert-retriever.log",
             "log_group_name": "$${cwa_bootstrap_loggrp_name}",
             "log_stream_name": "{instance_id}-acm-cert-retriever.log",
             "timezone": "UTC"
           },
           {
-            "file_path": "/var/log/adg/emr-setup.log",
+            "file_path": "/var/log/aws-emr-template-repository/emr-setup.log",
             "log_group_name": "$${cwa_bootstrap_loggrp_name}",
             "log_stream_name": "{instance_id}-emr-setup.log",
             "timezone": "UTC"
