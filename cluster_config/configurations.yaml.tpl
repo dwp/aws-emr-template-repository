@@ -59,23 +59,6 @@ Configurations:
 
 - Classification: "hive-site"
   Properties:
-    %{~ if hive_metastore_backend == "glue" ~}
-    "hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory"
-    %{~ endif ~}
-    %{~ if hive_metastore_backend == "aurora" ~}
-    "hive.metastore.warehouse.dir": "s3://${s3_published_bucket}/analytical-dataset/hive/external"
-    "hive.txn.manager": "org.apache.hadoop.hive.ql.lockmgr.DbTxnManager"
-    "hive.enforce.bucketing": "true"
-    "hive.exec.dynamic.partition.mode": "nostrict"
-    "hive.compactor.initiator.on": "true"
-    "hive.compactor.worker.threads": "1"
-    "hive.support.concurrency": "true"
-    "javax.jdo.option.ConnectionURL": "jdbc:mysql://${hive_metastore_endpoint}:3306/${hive_metastore_database_name}?createDatabaseIfNotExist=true"
-    "javax.jdo.option.ConnectionDriverName": "org.mariadb.jdbc.Driver"
-    "javax.jdo.option.ConnectionUserName": "${hive_metsatore_username}"
-    "javax.jdo.option.ConnectionPassword": "${hive_metastore_pwd}"
-    "hive.metastore.client.socket.timeout": "7200"
-    %{~ endif ~}
     "hive.mapred.mode": "nonstrict"
     "hive.strict.checks.cartesian.product": "false"
     "hive.exec.parallel": "true"
@@ -121,8 +104,6 @@ Configurations:
   - Classification: "export"
     Properties:
       "PYSPARK_PYTHON": "/usr/bin/python3"
-      "S3_PUBLISH_BUCKET": "${s3_published_bucket}"
-      "S3_HTME_BUCKET": "${s3_htme_bucket}"
 - Classification: "hadoop-env"
   Configurations:
   - Classification: "export"
