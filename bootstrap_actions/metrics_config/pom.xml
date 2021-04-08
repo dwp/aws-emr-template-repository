@@ -39,12 +39,6 @@
         </plugins>
     </build>
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/com.banzaicloud/spark-metrics -->
-        <dependency>
-            <groupId>com.banzaicloud</groupId>
-            <artifactId>spark-metrics_2.12</artifactId>
-            <version>2.4-1.0.6</version>
-        </dependency>
         <dependency>
             <groupId>io.prometheus.jmx</groupId>
             <artifactId>jmx_prometheus_javaagent</artifactId>

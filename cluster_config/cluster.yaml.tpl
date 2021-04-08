@@ -1,6 +1,5 @@
 ---
 Applications:
-- Name: "Spark"
 - Name: "Hive"
 CustomAmiId: "${ami_id}"
 EbsRootVolumeSize: 100

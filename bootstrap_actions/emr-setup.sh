@@ -12,19 +12,29 @@ chmod u+x /opt/emr/cloudwatch.sh
     function log_wrapper_message() {
         log_aws_emr_template_repository_message "$${1}" "emr-setup.sh" "$${PID}" "$${@:2}" "Running as: ,$USER"
     }
-    
     log_wrapper_message "Setting up the Proxy"
-    
+
     echo -n "Running as: "
     whoami
     
     export AWS_DEFAULT_REGION="${aws_default_region}"
-    
-    export aws_emr_template_repository_LOG_LEVEL="${aws_emr_template_repository_LOG_LEVEL}"
+
+    FULL_PROXY="${full_proxy}"
+    FULL_NO_PROXY="${full_no_proxy}"
+    export http_proxy="$FULL_PROXY"
+    export HTTP_PROXY="$FULL_PROXY"
+    export https_proxy="$FULL_PROXY"
+    export HTTPS_PROXY="$FULL_PROXY"
+    export no_proxy="$FULL_NO_PROXY"
+    export NO_PROXY="$FULL_NO_PROXY"
+    export AWS_EMR_TEMPLATE_REPOSITORY_LOG_LEVEL="${AWS_EMR_TEMPLATE_REPOSITORY_LOG_LEVEL}"
 
     echo "Setup cloudwatch logs"
     sudo /opt/emr/cloudwatch.sh \
+    "${cwa_metrics_collection_interval}" "${cwa_namespace}"  "${cwa_log_group_name}" \
+    "${aws_default_region}" "${cwa_bootstrap_loggrp_name}" "${cwa_steps_loggrp_name}"
 
+    log_wrapper_message "Getting the DKS Certificate Details "
     log_wrapper_message "Getting the DKS Certificate Details "
     
     ## get dks cert
