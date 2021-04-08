@@ -1,5 +1,5 @@
 locals {
-  emr_cluster_name         = "aws-emr-template-repository"
+  emr_cluster_name = "aws-emr-template-repository"
   common_emr_tags = merge(
     local.common_tags,
     {
@@ -104,6 +104,6 @@ locals {
   cw_agent_steps_loggrp_name           = "/app/aws_emr_template_repository/step_logs"
   cw_agent_metrics_collection_interval = 60
 
-  s3_log_prefix          = "emr/aws_emr_template_repository"
+  s3_log_prefix = "emr/aws_emr_template_repository"
 
 }
