@@ -10,7 +10,7 @@ Steps:
 - Name: "example-step-name"
   HadoopJarStep:
     Args:
-    - "file:/var/ci/courtesy-flush.sh"
+    - "file:/var/ci/example-step-name.sh"
     Jar: "s3://eu-west-2.elasticmapreduce/libs/script-runner/script-runner.jar"
   ActionOnFailure: "${action_on_failure}"
 
