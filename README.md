@@ -20,3 +20,12 @@ In addition, you may want to do the following:
     1. Add/remove jobs in `./ci/jobs` as required 
     1. Create CI pipeline:  
 `aviator`
+
+## Networking
+
+Before you are able to deploy your EMR cluster, the new service will need the networking for it configured.   
+
+[An example](https://git.ucd.gpn.gov.uk/dip/aws-internal-compute/blob/master/clive_network.tf) of this can be seen in the `internal-compute` VPC where a lot of our EMR clusters are deployed. 
+
+If you are creating the subnets in a different repository, remember to output the address as seen [here](https://git.ucd.gpn.gov.uk/dip/aws-internal-compute/blob/master/outputs.tf#L47-L53)
+

@@ -43,7 +43,7 @@ locals {
     production  = "dataworks.dwp.gov.uk"
   }
 
-  adg_log_level = {
+  aws_emr_template_repository_log_level = {
     development = "DEBUG"
     qa          = "DEBUG"
     integration = "DEBUG"
@@ -105,5 +105,33 @@ locals {
   cw_agent_metrics_collection_interval = 60
 
   s3_log_prefix = "emr/aws_emr_template_repository"
+
+  emr_capacity_reservation_preference = {
+    development = "none"
+    qa          = "open"
+    integration = "none"
+    preprod     = "none"
+    production  = "open"
+  }
+
+  emr_capacity_reservation_usage_strategy = {
+    development = ""
+    qa          = "use-capacity-reservations-first"
+    integration = ""
+    preprod     = ""
+    production  = "use-capacity-reservations-first"
+  }
+
+  emr_subnet_non_capacity_reserved_environments = "eu-west-2b"
+
+  data_pipeline_metadata = data.terraform_remote_state.internal_compute.outputs.data_pipeline_metadata_dynamo.name
+
+  aws_emr_template_repository_alerts = {
+    development = false
+    qa          = false
+    integration = false
+    preprod     = false
+    production  = true
+  }
 
 }
