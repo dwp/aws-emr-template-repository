@@ -288,7 +288,7 @@ data "aws_iam_policy_document" "aws_emr_template_repository_write_dynamodb" {
 
 resource "aws_iam_policy" "aws_emr_template_repository_write_dynamodb" {
   name        = "AwsEmrTemplateRepositoryDynamoDB"
-  description = "Allows read and write access to ADG's EMRFS DynamoDB table"
+  description = "Allows read and write access toaws_emr_template_repository's EMRFS DynamoDB table"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_write_dynamodb.json
 }
 
