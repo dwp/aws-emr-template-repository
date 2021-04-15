@@ -11,6 +11,8 @@ help:
 
 bootstrap: bootstrap-terraform get-dependencies
 
+create-workspaces: bootstrap-terraform terraform-workspace-new
+
 .PHONY: bootstrap
 bootstrap-terraform: ## Bootstrap local environment for first use
 	@make git-hooks
@@ -41,14 +43,13 @@ terraform-apply: ## Run `terraform apply` from repo root
 	terraform apply
 
 .PHONY: terraform-workspace-new
-terraform-workspace-new: ## Creates new Terraform workspace with Concourse remote execution. Run `terraform-workspace-new workspace=<workspace_name>`
+terraform-workspace-new: ## Creates new Terraform workspace with Concourse remote execution
 	declare -a workspace=( qa integration preprod production ) \
-	make bootstrap ; \
-	cp terraform.tf jeff.tf && \
+	cp terraform.tf workspaces.tf && \
 	for i in "$${workspace[@]}" ; do \
 		fly -t aws-concourse execute --config create-workspace.yml --input repo=. -v workspace="$$i" ; \
 	done
-	rm jeff.tf
+	rm workspaces.tf
 
 .PHONY: get-dependencies
 get-dependencies: ## Get dependencies that are normally managed by pipeline

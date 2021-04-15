@@ -29,6 +29,19 @@ data "aws_iam_policy_document" "aws_emr_template_repository_ebs_cmk" {
   }
 
   statement {
+    sid    = "EnableIAMPermissionsAccount"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = [local.account[local.environment]]
+    }
+
+    actions   = ["kms:*"]
+    resources = ["*"]
+  }
+
+  statement {
     sid    = "EnableIAMPermissionsCI"
     effect = "Allow"
 
@@ -191,7 +204,7 @@ data "aws_iam_policy_document" "aws_emr_template_repository_ebs_cmk_encrypt" {
 }
 
 resource "aws_iam_policy" "aws_emr_template_repository_ebs_cmk_encrypt" {
-  name        = "AwsEmrTemplateRepositoryEbsCmkEncrypt"
+  name        = "aws-emr-template-repository-EbsCmkEncrypt"
   description = "Allow encryption and decryption using the aws_emr_template_repository EBS CMK"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_ebs_cmk_encrypt.json
 }

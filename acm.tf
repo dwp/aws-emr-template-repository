@@ -22,7 +22,29 @@ data "aws_iam_policy_document" "aws_emr_template_repository_acm" {
 }
 
 resource "aws_iam_policy" "aws_emr_template_repository_acm" {
-  name        = "ACMExportAWSEMRtemplateRepositoryCert"
+  name        = "ACMExport-aws-emr-template-repository-Cert"
+  description = "Allow export of aws-emr-template-repository certificate"
+  policy      = data.aws_iam_policy_document.aws_emr_template_repository_acm.json
+}
+
+data "aws_iam_policy_document" "aws_emr_template_repository_certificates" {
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "s3:Get*",
+      "s3:List*",
+    ]
+
+    resources = [
+      "arn:aws:s3:::${local.mgt_certificate_bucket}*",
+      "arn:aws:s3:::${local.env_certificate_bucket}/*",
+    ]
+  }
+}
+
+resource "aws_iam_policy" "aws_emr_template_repository_acm" {
+  name        = "ACMExportaws-emr-template-repository-Cert"
   description = "Allow export of aws-emr-template-repository certificate"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_acm.json
 }
