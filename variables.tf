@@ -61,3 +61,7 @@ variable "tez_grouping_max_size" {}
 variable "tez_am_resource_memory_mb" {}
 
 variable "tez_am_launch_cmd_opts" {}
+
+variable "tez_runtime_io_sort_mb" {}
+
+variable "hive_auto_convert_join_noconditionaltask_size" {}

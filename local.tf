@@ -135,14 +135,4 @@ locals {
 
   emr_subnet_non_capacity_reserved_environments = "eu-west-2b"
 
-  data_pipeline_metadata = data.terraform_remote_state.internal_compute.outputs.data_pipeline_metadata_dynamo.name
-
-  aws_emr_template_repository_alerts = {
-    development = false
-    qa          = false
-    integration = false
-    preprod     = false
-    production  = true
-  }
-
 }

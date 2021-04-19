@@ -43,9 +43,10 @@ data "aws_iam_policy_document" "aws_emr_template_repository_certificates" {
   }
 }
 
-resource "aws_iam_policy" "aws_emr_template_repository_acm" {
-  name        = "ACMExportaws-emr-template-repository-Cert"
-  description = "Allow export of aws-emr-template-repository certificate"
-  policy      = data.aws_iam_policy_document.aws_emr_template_repository_acm.json
+resource "aws_iam_policy" "aws_emr_template_repository_certificates" {
+  name        = "aws_emr_template_repositoryGetCertificates"
+  description = "Allow read access to the Crown-specific subset of the aws_emr_template_repository"
+  policy      = data.aws_iam_policy_document.aws_emr_template_repository_certificates.json
 }
+
 

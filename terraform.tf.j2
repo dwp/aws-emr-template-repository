@@ -1,10 +1,10 @@
 terraform {
-  required_version = "{{terraform_12_version}}"
+  required_version = "{{terraform.terraform_12_version}}"
 
   backend "s3" {
     bucket         = "{{terraform.state_file_bucket}}"
     key            = "terraform/dataworks/aws-emr-template-repository.tfstate"
-    region         = "{{state_file_region}}"
+    region         = "{{terraform.state_file_region}}"
     encrypt        = true
     kms_key_id     = "arn:aws:kms:{{state_file_region}}:{{state_file_account}}:key/{{state_file_kms_key}}"
     dynamodb_table = "remote_state_locks"

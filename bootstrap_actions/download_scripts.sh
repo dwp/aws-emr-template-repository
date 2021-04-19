@@ -8,10 +8,10 @@ sudo chown hadoop:hadoop /var/log/aws_emr_template_repository
 sudo chown hadoop:hadoop /opt/emr
 sudo chown hadoop:hadoop /opt/shared
 sudo chown hadoop:hadoop /var/ci
-export aws_emr_template_repository_LOG_LEVEL="${aws_emr_template_repository_LOG_LEVEL}"
+export AWS_EMR_TEMPLATE_REPOSITORY_LOG_LEVEL="${AWS_EMR_TEMPLATE_REPOSITORY_LOG_LEVEL}"
 
 echo "${VERSION}" > /opt/emr/version
-echo "${aws_emr_template_repository_LOG_LEVEL}" > /opt/emr/log_level
+echo "${AWS_EMR_TEMPLATE_REPOSITORY_LOG_LEVEL}" > /opt/emr/log_level
 echo "${ENVIRONMENT_NAME}" > /opt/emr/environment
 
 # Download the logging scripts
