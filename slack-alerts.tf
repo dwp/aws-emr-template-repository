@@ -14,7 +14,7 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_failed" {
       "TERMINATED_WITH_ERRORS"
     ],
     "name": [
-      "aws_emr_template_repository"
+      "aws-emr-template-repository"
     ]
   }
 }
@@ -37,7 +37,7 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_terminated" {
       "TERMINATED"
     ],
     "name": [
-      "aws_emr_template_repository"
+      "aws-emr-template-repository"
     ],
     "stateChangeReason": [
       "{\"code\":\"USER_REQUEST\",\"message\":\"User request\"}"
@@ -63,7 +63,7 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repositorysuccess" {
       "TERMINATED"
     ],
     "name": [
-      "aws_emr_template_repository"
+      "aws-emr-template-repository"
     ],
     "stateChangeReason": [
       "{\"code\":\"ALL_STEPS_COMPLETED\",\"message\":\"Steps completed\"}"
@@ -89,7 +89,7 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_running" {
       "RUNNING"
     ],
     "name": [
-      "aws_emr_template_repository"
+      "aws-emr-template-repository"
     ]
   }
 }
