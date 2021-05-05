@@ -6,11 +6,6 @@ Configurations:
     "yarn.nodemanager.remote-app-log-dir": "s3://${s3_log_bucket}/${s3_log_prefix}/yarn"
     "yarn.nodemanager.vmem-check-enabled": "false"
     "yarn.nodemanager.pmem-check-enabled": "false"
-    "yarn.acl.enable": "true"
-    "yarn.scheduler.fair.preemption": "true"
-    "yarn.scheduler.fair.preemption.cluster-utilization-threshold": "0.8"
-    "yarn.resourcemanager.scheduler.class": "org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler"
-    "yarn.scheduler.fair.allocation.file": "/opt/emr/fair-scheduler.xml"
 
 - Classification: "hive-site"
   Properties:

@@ -47,7 +47,7 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_terminated" {
 EOF
 }
 
-resource "aws_cloudwatch_event_rule" "aws_emr_template_repositorysuccess" {
+resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_success" {
   name          = "aws_emr_template_repository_success"
   description   = "checks that all steps complete"
   event_pattern = <<EOF

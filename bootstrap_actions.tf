@@ -11,7 +11,7 @@ resource "aws_s3_bucket_object" "download_scripts_sh" {
   content = templatefile("${path.module}/bootstrap_actions/download_scripts.sh",
     {
       VERSION                               = local.aws_emr_template_repository_version[local.environment]
-      aws_emr_template_repository_LOG_LEVEL = local.aws_emr_template_repository_log_level[local.environment]
+      AWS_EMR_TEMPLATE_REPOSITORY_LOG_LEVEL = local.aws_emr_template_repository_log_level[local.environment]
       ENVIRONMENT_NAME                      = local.environment
       S3_COMMON_LOGGING_SHELL               = format("s3://%s/%s", data.terraform_remote_state.common.outputs.config_bucket.id, data.terraform_remote_state.common.outputs.application_logging_common_file.s3_id)
       S3_LOGGING_SHELL                      = format("s3://%s/%s", data.terraform_remote_state.common.outputs.config_bucket.id, aws_s3_bucket_object.logging_script.key)
@@ -24,7 +24,7 @@ resource "aws_s3_bucket_object" "emr_setup_sh" {
   key    = "component/aws_emr_template_repository/emr-setup.sh"
   content = templatefile("${path.module}/bootstrap_actions/emr-setup.sh",
     {
-      aws_emr_template_repository_LOG_LEVEL = local.aws_emr_template_repository_log_level[local.environment]
+      AWS_EMR_TEMPLATE_REPOSITORY_LOG_LEVEL = local.aws_emr_template_repository_log_level[local.environment]
       aws_default_region                    = "eu-west-2"
       full_proxy                            = data.terraform_remote_state.internal_compute.outputs.internet_proxy.url
       full_no_proxy                         = local.no_proxy
@@ -90,10 +90,9 @@ resource "aws_s3_bucket_object" "metrics_setup_sh" {
   key        = "component/aws_emr_template_repository/metrics-setup.sh"
   content = templatefile("${path.module}/bootstrap_actions/metrics-setup.sh",
     {
-      proxy_url          = data.terraform_remote_state.internal_compute.outputs.internet_proxy.url
-      metrics_properties = format("s3://%s/%s", data.terraform_remote_state.common.outputs.config_bucket.id, aws_s3_bucket_object.metrics_properties.key)
-      metrics_pom        = format("s3://%s/%s", data.terraform_remote_state.common.outputs.config_bucket.id, aws_s3_bucket_object.metrics_pom.key)
-      prometheus_config  = format("s3://%s/%s", data.terraform_remote_state.common.outputs.config_bucket.id, aws_s3_bucket_object.prometheus_config.key)
+      proxy_url         = data.terraform_remote_state.internal_compute.outputs.internet_proxy.url
+      metrics_pom       = format("s3://%s/%s", data.terraform_remote_state.common.outputs.config_bucket.id, aws_s3_bucket_object.metrics_pom.key)
+      prometheus_config = format("s3://%s/%s", data.terraform_remote_state.common.outputs.config_bucket.id, aws_s3_bucket_object.prometheus_config.key)
     }
   )
 }
