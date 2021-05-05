@@ -3,6 +3,11 @@ groups:
     jobs:
       - development
       - qa
+  
   - name: pull-request
     jobs:
       - aws-emr-template-repository-pr
+  
+  - name: update-pipeline
+    jobs:
+      - update-pipeline
