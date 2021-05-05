@@ -117,22 +117,25 @@ locals {
 
   s3_log_prefix = "emr/aws_emr_template_repository"
 
+  # These should be `none` unless we have agreed this data product is to use the capacity reservations so as not to interfere with existing data products running
+  # If capacity reservation to be used, then it should be `open`
   emr_capacity_reservation_preference = {
     development = "none"
-    qa          = "open"
+    qa          = "none"
     integration = "none"
     preprod     = "none"
-    production  = "open"
+    production  = "none"
   }
 
+  # These should be empty unless we have agreed this data product is to use the capacity reservations so as not to interfere with existing data products running
+  # If capacity reservation to be used, then it should be `use-capacity-reservations-first`
   emr_capacity_reservation_usage_strategy = {
     development = ""
-    qa          = "use-capacity-reservations-first"
+    qa          = ""
     integration = ""
     preprod     = ""
-    production  = "use-capacity-reservations-first"
+    production  = ""
   }
 
-  emr_subnet_non_capacity_reserved_environments = "eu-west-2b"
-
+  emr_subnet_non_capacity_reserved_environments = "eu-west-2c"
 }
