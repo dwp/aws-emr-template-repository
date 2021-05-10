@@ -24,7 +24,7 @@ resource "aws_iam_instance_profile" "aws_emr_template_repository" {
 
 resource "aws_iam_role_policy_attachment" "ec2_for_ssm_attachment" {
   role       = aws_iam_role.aws_emr_template_repository.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
 resource "aws_iam_role_policy_attachment" "amazon_ssm_managed_instance_core" {
