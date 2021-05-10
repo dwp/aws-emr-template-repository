@@ -29,3 +29,7 @@ Before you are able to deploy your EMR cluster, the new service will need the ne
 
 If you are creating the subnets in a different repository, remember to output the address as seen [here](https://git.ucd.gpn.gov.uk/dip/aws-internal-compute/blob/master/outputs.tf#L47-L53)
 
+
+## Optional Features
+
+`data.tf.OPTIONAL` can be used if your product requires writing data to the published S3 bucket.
