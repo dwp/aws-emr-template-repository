@@ -64,6 +64,10 @@ meta:
           args:
             - -exc
             - |
+              if [[ -z "${DETAILED_EXITCODE}"]]; then
+                terraform fmt -recursive -check=true
+              fi
+
               cp ../terraform-bootstrap/terraform.tf .
               terraform workspace show
               terraform init
