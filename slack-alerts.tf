@@ -19,6 +19,10 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_failed" {
   }
 }
 EOF
+
+  tags = {
+      Name = "aws_emr_template_repository_failed"
+  }
 }
 
 resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_terminated" {
@@ -45,6 +49,10 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_terminated" {
   }
 }
 EOF
+
+  tags = {
+      Name = "aws_emr_template_repository_terminated"
+  }
 }
 
 resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_success" {
@@ -71,6 +79,10 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_success" {
   }
 }
 EOF
+
+  tags = {
+      Name = "aws_emr_template_repository_success"
+  }
 }
 
 resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_running" {
@@ -94,6 +106,10 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_running" {
   }
 }
 EOF
+
+  tags = {
+      Name = "aws_emr_template_repository_running"
+  }
 }
 
 resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_failed" {
@@ -112,14 +128,11 @@ resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_failed" {
   dimensions = {
     RuleName = aws_cloudwatch_event_rule.aws_emr_template_repository_failed.name
   }
-  tags = merge(
-    local.common_tags,
-    {
-      Name              = "aws_emr_template_repository_failed",
-      notification_type = "Error",
-      severity          = "Critical"
-    },
-  )
+  tags = {
+    Name              = "aws_emr_template_repository_failed",
+    notification_type = "Error",
+    severity          = "Critical"
+  }
 }
 
 resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_terminated" {
@@ -138,14 +151,11 @@ resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_terminated" 
   dimensions = {
     RuleName = aws_cloudwatch_event_rule.aws_emr_template_repository_terminated.name
   }
-  tags = merge(
-    local.common_tags,
-    {
-      Name              = "aws_emr_template_repository_terminated",
-      notification_type = "Information",
-      severity          = "High"
-    },
-  )
+  tags = {
+    Name              = "aws_emr_template_repository_terminated",
+    notification_type = "Information",
+    severity          = "High"
+  }
 }
 
 resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_success" {
@@ -164,14 +174,11 @@ resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_success" {
   dimensions = {
     RuleName = aws_cloudwatch_event_rule.aws_emr_template_repository_success.name
   }
-  tags = merge(
-    local.common_tags,
-    {
-      Name              = "aws_emr_template_repository_success",
-      notification_type = "Information",
-      severity          = "Critical"
-    },
-  )
+  tags = {
+    Name              = "aws_emr_template_repository_success",
+    notification_type = "Information",
+    severity          = "Critical"
+  }
 }
 
 resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_running" {
@@ -190,12 +197,9 @@ resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_running" {
   dimensions = {
     RuleName = aws_cloudwatch_event_rule.aws_emr_template_repository_running.name
   }
-  tags = merge(
-    local.common_tags,
-    {
-      Name              = "aws_emr_template_repository_running",
-      notification_type = "Information",
-      severity          = "Critical"
-    },
-  )
+  tags = {
+    Name              = "aws_emr_template_repository_running",
+    notification_type = "Information",
+    severity          = "Critical"
+  }
 }

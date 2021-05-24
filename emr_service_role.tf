@@ -46,7 +46,9 @@ data "aws_iam_policy_document" "emr_capacity_reservations" {
 resource "aws_iam_role" "aws_emr_template_repository_emr_service" {
   name               = "aws_emr_template_repository_emr_service"
   assume_role_policy = data.aws_iam_policy_document.emr_assume_role.json
-  tags               = local.tags
+  tags = {
+      Name = "aws_emr_template_repository_emr_service"
+  }
 }
 
 # This is new and should replace the deprecated one but doesn't work correctly
@@ -65,6 +67,9 @@ resource "aws_iam_policy" "emr_capacity_reservations" {
   name        = "aws_emr_template_repositoryCapacityReservations"
   description = "Allow usage of capacity reservations"
   policy      = data.aws_iam_policy_document.emr_capacity_reservations.json
+  tags = {
+      Name = "emr_capacity_reservations"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "emr_capacity_reservations" {

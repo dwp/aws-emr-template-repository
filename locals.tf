@@ -1,19 +1,33 @@
 locals {
-  emr_cluster_name = "aws-emr-template-repository"
-  common_emr_tags = merge(
-    local.common_tags,
-    {
-      for-use-with-amazon-emr-managed-policies = "true"
-    },
-  )
-  common_tags = {
-    Environment  = local.environment
-    Application  = local.emr_cluster_name
-    CreatedBy    = "terraform"
-    Owner        = "dataworks platform"
-    Persistence  = "Ignore"
-    AutoShutdown = "False"
+  persistence_tag_value = {
+    development = "mon-fri,08:00-18:00"
+    qa          = "Ignore"
+    integration = "mon-fri,08:00-18:00"
+    preprod     = "Ignore"
+    production  = "Ignore"
   }
+
+  auto_shutdown_tag_value = {
+    development = "True"
+    qa          = "False"
+    integration = "True"
+    preprod     = "False"
+    production  = "False"
+  }
+
+  overridden_tags = {
+    Role         = "emr_template_repository"
+    Owner        = "aws-emr-template-repository"
+    Persistence  = local.persistence_tag_value[local.environment]
+    AutoShutdown = local.auto_shutdown_tag_value[local.environment]
+  }
+
+  common_repo_tags = "${merge(module.dataworks_common.common_tags, local.overridden_tags)}"
+  common_emr_tags = {
+    for-use-with-amazon-emr-managed-policies = "true"
+  }
+
+  emr_cluster_name = "aws-emr-template-repository"
   env_certificate_bucket = "dw-${local.environment}-public-certificates"
   mgt_certificate_bucket = "dw-${local.management_account[local.environment]}-public-certificates"
   dks_endpoint           = data.terraform_remote_state.crypto.outputs.dks_endpoint[local.environment]

@@ -167,6 +167,9 @@ resource "aws_kms_key" "aws_emr_template_repository_ebs_cmk" {
       ProtectsSensitiveData = "True"
     }
   )
+  tags = {
+      Name = "aws_emr_template_repository_ebs_cmk"
+  }
 }
 
 resource "aws_kms_alias" "aws_emr_template_repository_ebs_cmk" {
@@ -207,4 +210,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_ebs_cmk_encrypt" {
   name        = "aws-emr-template-repository-EbsCmkEncrypt"
   description = "Allow encryption and decryption using the aws_emr_template_repository EBS CMK"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_ebs_cmk_encrypt.json
+  tags = {
+      Name = "aws_emr_template_repository_ebs_cmk_encrypt"
+  }
 }

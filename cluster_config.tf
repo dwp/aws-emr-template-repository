@@ -22,6 +22,9 @@ resource "aws_s3_bucket_object" "cluster" {
       emr_release            = var.emr_release[local.environment]
     }
   )
+  tags = {
+      Name = "cluster"
+  }
 }
 
 resource "aws_s3_bucket_object" "instances" {
@@ -46,6 +49,9 @@ resource "aws_s3_bucket_object" "instances" {
       capacity_reservation_usage_strategy = local.emr_capacity_reservation_usage_strategy
     }
   )
+  tags = {
+      Name = "instances"
+  }
 }
 
 resource "aws_s3_bucket_object" "steps" {
@@ -58,6 +64,9 @@ resource "aws_s3_bucket_object" "steps" {
       s3_published_bucket = data.terraform_remote_state.common.outputs.published_bucket.id
     }
   )
+  tags = {
+      Name = "steps"
+  }
 }
 
 
@@ -84,5 +93,8 @@ resource "aws_s3_bucket_object" "configurations" {
       tez_runtime_io_sort_mb                        = var.tez_runtime_io_sort_mb
     }
   )
+  tags = {
+      Name = "configurations"
+  }
 }
 
