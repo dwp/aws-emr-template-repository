@@ -204,3 +204,9 @@ data "terraform_remote_state" "management_artefact" {
     dynamodb_table = "remote_state_locks"
   }
 }
+
+module "dataworks_common" {
+  source                = "{{terraform.dataworks_common_module_name}}"
+  version               = "{{terraform.dataworks_common_module_version}}"
+  tag_value_environment = local.environment
+}

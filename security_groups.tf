@@ -3,7 +3,9 @@ resource "aws_security_group" "aws_emr_template_repository_master" {
   description            = "Contains rules for aws_emr_template_repository master nodes; most rules are injected by EMR, not managed by TF"
   revoke_rules_on_delete = true
   vpc_id                 = data.terraform_remote_state.internal_compute.outputs.vpc.vpc.vpc.id
-  tags                   = local.common_emr_tags
+  tags = {
+      Name = "aws_emr_template_repository_master"
+  }
 }
 
 resource "aws_security_group" "aws_emr_template_repository_slave" {
@@ -11,7 +13,9 @@ resource "aws_security_group" "aws_emr_template_repository_slave" {
   description            = "Contains rules for aws_emr_template_repository slave nodes; most rules are injected by EMR, not managed by TF"
   revoke_rules_on_delete = true
   vpc_id                 = data.terraform_remote_state.internal_compute.outputs.vpc.vpc.vpc.id
-  tags                   = local.common_emr_tags
+  tags = {
+      Name = "aws_emr_template_repository_slave"
+  }
 }
 
 resource "aws_security_group" "aws_emr_template_repository_common" {
@@ -19,7 +23,9 @@ resource "aws_security_group" "aws_emr_template_repository_common" {
   description            = "Contains rules for both aws_emr_template_repository master and aws_emr_template_repository slave nodes"
   revoke_rules_on_delete = true
   vpc_id                 = data.terraform_remote_state.internal_compute.outputs.vpc.vpc.vpc.id
-  tags                   = local.common_emr_tags
+  tags = {
+      Name = "aws_emr_template_repository_common"
+  }
 }
 
 resource "aws_security_group" "aws_emr_template_repository_emr_service" {
@@ -27,7 +33,9 @@ resource "aws_security_group" "aws_emr_template_repository_emr_service" {
   description            = "Contains rules for EMR service when managing the aws_emr_template_repository cluster; rules are injected by EMR, not managed by TF"
   revoke_rules_on_delete = true
   vpc_id                 = data.terraform_remote_state.internal_compute.outputs.vpc.vpc.vpc.id
-  tags                   = local.common_emr_tags
+  tags = {
+      Name = "aws_emr_template_repository_emr_service"
+  }
 }
 
 resource "aws_security_group_rule" "egress_https_to_vpc_endpoints" {

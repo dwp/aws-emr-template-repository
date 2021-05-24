@@ -30,11 +30,18 @@ resource "aws_lambda_function" "aws_emr_template_repository_emr_launcher" {
       EMR_LAUNCHER_LOG_LEVEL        = "debug"
     }
   }
+
+  tags = {
+      Name = "aws_emr_template_repository_emr_launcher"
+  }
 }
 
 resource "aws_iam_role" "aws_emr_template_repository_emr_launcher_lambda_role" {
   name               = "aws_emr_template_repository_emr_launcher_lambda_role"
   assume_role_policy = data.aws_iam_policy_document.aws_emr_template_repository_emr_launcher_assume_policy.json
+  tags = {
+      Name = "aws_emr_template_repository_emr_launcher_lambda_role"
+  }
 }
 
 data "aws_iam_policy_document" "aws_emr_template_repository_emr_launcher_assume_policy" {
@@ -100,18 +107,27 @@ resource "aws_iam_policy" "aws_emr_template_repository_emr_launcher_read_s3_poli
   name        = "aws_emr_template_repositoryReadS3"
   description = "Allow aws_emr_template_repository to read from S3 bucket"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_emr_launcher_read_s3_policy.json
+  tags = {
+      Name = "aws_emr_template_repository_emr_launcher_read_s3_policy"
+  }
 }
 
 resource "aws_iam_policy" "aws_emr_template_repository_emr_launcher_runjobflow_policy" {
   name        = "aws_emr_template_repositoryRunJobFlow"
   description = "Allow aws_emr_template_repository to run job flow"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_emr_launcher_runjobflow_policy.json
+  tags = {
+      Name = "aws_emr_template_repository_emr_launcher_runjobflow_policy"
+  }
 }
 
 resource "aws_iam_policy" "aws_emr_template_repository_emr_launcher_pass_role_policy" {
   name        = "aws_emr_template_repositoryPassRole"
   description = "Allow aws_emr_template_repository to pass role"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_emr_launcher_pass_role_document.json
+  tags = {
+      Name = "aws_emr_template_repository_emr_launcher_pass_role_policy"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "aws_emr_template_repository_emr_launcher_read_s3_attachment" {
