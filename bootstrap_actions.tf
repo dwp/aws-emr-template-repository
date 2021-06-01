@@ -61,6 +61,16 @@ resource "aws_s3_bucket_object" "ssm_script" {
   }
 }
 
+resource "aws_s3_bucket_object" "status_metrics_sh" {
+  bucket = data.terraform_remote_state.common.outputs.config_bucket.id
+  key    = "component/aws_emr_template_repository/status_metrics.sh"
+  content = templatefile("${path.module}/bootstrap_actions/status_metrics.sh",
+    {
+      aws_emr_template_repository_pushgateway_hostname = local.aws_emr_template_repository_pushgateway_hostname
+      dynamodb_final_step                              = local.dynamodb_final_step[local.environment]
+    }
+  )
+}
 
 resource "aws_s3_bucket_object" "logging_script" {
   bucket  = data.terraform_remote_state.common.outputs.config_bucket.id
@@ -142,4 +152,23 @@ resource "aws_s3_bucket_object" "prometheus_config" {
   tags              = {
       Name = "prometheus_config"
   }
+}
+
+resource "aws_s3_bucket_object" "dynamo_json_file" {
+  bucket     = data.terraform_remote_state.common.outputs.config_bucket.id
+  kms_key_id = data.terraform_remote_state.common.outputs.config_bucket_cmk.arn
+  key        = "component/aws_emr_template_repository/dynamo_schema.json"
+  content    = file("${path.module}/bootstrap_actions/dynamo_schema.json")
+}
+
+resource "aws_s3_bucket_object" "update_dynamo_sh" {
+  bucket     = data.terraform_remote_state.common.outputs.config_bucket.id
+  kms_key_id = data.terraform_remote_state.common.outputs.config_bucket_cmk.arn
+  key        = "component/aws_emr_template_repository/update_dynamo.sh"
+  content = templatefile("${path.module}/bootstrap_actions/update_dynamo.sh",
+    {
+      dynamodb_table_name = local.data_pipeline_metadata
+      dynamodb_final_step = local.dynamodb_final_step[local.environment]
+    }
+  )
 }

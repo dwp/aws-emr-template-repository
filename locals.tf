@@ -131,6 +131,8 @@ locals {
 
   s3_log_prefix = "emr/aws_emr_template_repository"
 
+  dynamodb_final_step = "temp"
+
   # These should be `false` unless we have agreed this data product is to use the capacity reservations so as not to interfere with existing data products running
   use_capacity_reservation = {
     development = false
