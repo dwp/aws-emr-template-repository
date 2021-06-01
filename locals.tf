@@ -27,7 +27,7 @@ locals {
     for-use-with-amazon-emr-managed-policies = "true"
   }
 
-  emr_cluster_name = "aws-emr-template-repository"
+  emr_cluster_name       = "aws-emr-template-repository"
   env_certificate_bucket = "dw-${local.environment}-public-certificates"
   mgt_certificate_bucket = "dw-${local.management_account[local.environment]}-public-certificates"
   dks_endpoint           = data.terraform_remote_state.crypto.outputs.dks_endpoint[local.environment]
@@ -141,7 +141,7 @@ locals {
     preprod     = false
     production  = false
   }
-  
+
   emr_capacity_reservation_preference = local.use_capacity_reservation[local.environment] == true ? "open" : "none"
 
   emr_capacity_reservation_usage_strategy = local.use_capacity_reservation[local.environment] == true ? "use-capacity-reservations-first" : ""

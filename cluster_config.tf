@@ -23,7 +23,7 @@ resource "aws_s3_bucket_object" "cluster" {
     }
   )
   tags = {
-      Name = "cluster"
+    Name = "cluster"
   }
 }
 
@@ -32,9 +32,10 @@ resource "aws_s3_bucket_object" "instances" {
   key    = "emr/aws_emr_template_repository/instances.yaml"
   content = templatefile("${path.module}/cluster_config/instances.yaml.tpl",
     {
-      keep_cluster_alive                  = local.keep_cluster_alive[local.environment]
-      add_master_sg                       = aws_security_group.aws_emr_template_repository_common.id
-      add_slave_sg                        = aws_security_group.aws_emr_template_repository_common.id      subnet_id = (
+      keep_cluster_alive = local.keep_cluster_alive[local.environment]
+      add_master_sg      = aws_security_group.aws_emr_template_repository_common.id
+      add_slave_sg       = aws_security_group.aws_emr_template_repository_common.id
+      subnet_id = (
         local.use_capacity_reservation[local.environment] == true ?
         data.terraform_remote_state.internal_compute.outputs.aws_emr_template_repository_subnet.subnets[index(data.terraform_remote_state.internal_compute.outputs.aws_emr_template_repository_subnet.subnets.*.availability_zone, data.terraform_remote_state.common.outputs.ec2_capacity_reservations.emr_m5_16_x_large_2a.availability_zone)].id :
         data.terraform_remote_state.internal_compute.outputs.aws_emr_template_repository_subnet.subnets[index(data.terraform_remote_state.internal_compute.outputs.aws_emr_template_repository_subnet.subnets.*.availability_zone, local.emr_subnet_non_capacity_reserved_environments)].id
@@ -50,7 +51,7 @@ resource "aws_s3_bucket_object" "instances" {
     }
   )
   tags = {
-      Name = "instances"
+    Name = "instances"
   }
 }
 
@@ -65,7 +66,7 @@ resource "aws_s3_bucket_object" "steps" {
     }
   )
   tags = {
-      Name = "steps"
+    Name = "steps"
   }
 }
 
@@ -94,7 +95,7 @@ resource "aws_s3_bucket_object" "configurations" {
     }
   )
   tags = {
-      Name = "configurations"
+    Name = "configurations"
   }
 }
 

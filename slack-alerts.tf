@@ -21,7 +21,7 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_failed" {
 EOF
 
   tags = {
-      Name = "aws_emr_template_repository_failed"
+    Name = "aws_emr_template_repository_failed"
   }
 }
 
@@ -51,7 +51,7 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_terminated" {
 EOF
 
   tags = {
-      Name = "aws_emr_template_repository_terminated"
+    Name = "aws_emr_template_repository_terminated"
   }
 }
 
@@ -81,7 +81,7 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_success" {
 EOF
 
   tags = {
-      Name = "aws_emr_template_repository_success"
+    Name = "aws_emr_template_repository_success"
   }
 }
 
@@ -108,7 +108,7 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_running" {
 EOF
 
   tags = {
-      Name = "aws_emr_template_repository_running"
+    Name = "aws_emr_template_repository_running"
   }
 }
 

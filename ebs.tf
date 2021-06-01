@@ -156,19 +156,12 @@ resource "aws_kms_key" "aws_emr_template_repository_ebs_cmk" {
   enable_key_rotation     = true
   policy                  = data.aws_iam_policy_document.aws_emr_template_repository_ebs_cmk.json
 
-
   # ProtectsSensitiveData = "True" - the aws_emr_template_repository cluster decrypts sensitive data
   # that it reads from HBase. It can potentially spill this to disk if it can't
   # hold it all in memory, which is likely given the size of the dataset.
-  tags = merge(
-    local.tags,
-    {
-      Name                  = "aws_emr_template_repository_ebs_cmk"
-      ProtectsSensitiveData = "True"
-    }
-  )
   tags = {
-      Name = "aws_emr_template_repository_ebs_cmk"
+    Name                  = "aws_emr_template_repository_ebs_cmk"
+    ProtectsSensitiveData = "True"
   }
 }
 
@@ -211,6 +204,6 @@ resource "aws_iam_policy" "aws_emr_template_repository_ebs_cmk_encrypt" {
   description = "Allow encryption and decryption using the aws_emr_template_repository EBS CMK"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_ebs_cmk_encrypt.json
   tags = {
-      Name = "aws_emr_template_repository_ebs_cmk_encrypt"
+    Name = "aws_emr_template_repository_ebs_cmk_encrypt"
   }
 }

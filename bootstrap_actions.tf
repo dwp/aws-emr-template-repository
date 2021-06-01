@@ -3,8 +3,8 @@ resource "aws_s3_bucket_object" "metadata_script" {
   key        = "component/aws_emr_template_repository/metadata.sh"
   content    = file("${path.module}/bootstrap_actions/metadata.sh")
   kms_key_id = data.terraform_remote_state.common.outputs.config_bucket_cmk.arn
-  tags              = {
-      Name = "metadata_script"
+  tags = {
+    Name = "metadata_script"
   }
 }
 
@@ -20,8 +20,8 @@ resource "aws_s3_bucket_object" "download_scripts_sh" {
       S3_LOGGING_SHELL                      = format("s3://%s/%s", data.terraform_remote_state.common.outputs.config_bucket.id, aws_s3_bucket_object.logging_script.key)
       scripts_location                      = format("s3://%s/%s", data.terraform_remote_state.common.outputs.config_bucket.id, "component/aws_emr_template_repository")
   })
-  tags              = {
-      Name = "download_scripts_sh"
+  tags = {
+    Name = "download_scripts_sh"
   }
 }
 
@@ -47,8 +47,8 @@ resource "aws_s3_bucket_object" "emr_setup_sh" {
       cwa_steps_loggrp_name                 = aws_cloudwatch_log_group.aws_emr_template_repository_cw_steps_loggroup.name
       name                                  = local.emr_cluster_name
   })
-  tags              = {
-      Name = "emr_setup_sh"
+  tags = {
+    Name = "emr_setup_sh"
   }
 }
 
@@ -56,8 +56,8 @@ resource "aws_s3_bucket_object" "ssm_script" {
   bucket  = data.terraform_remote_state.common.outputs.config_bucket.id
   key     = "component/aws_emr_template_repository/start_ssm.sh"
   content = file("${path.module}/bootstrap_actions/start_ssm.sh")
-  tags              = {
-      Name = "ssm_script"
+  tags = {
+    Name = "ssm_script"
   }
 }
 
@@ -76,32 +76,32 @@ resource "aws_s3_bucket_object" "logging_script" {
   bucket  = data.terraform_remote_state.common.outputs.config_bucket.id
   key     = "component/aws_emr_template_repository/logging.sh"
   content = file("${path.module}/bootstrap_actions/logging.sh")
-  tags              = {
-      Name = "logging_script"
+  tags = {
+    Name = "logging_script"
   }
 }
 
 resource "aws_cloudwatch_log_group" "aws_emr_template_repository" {
   name              = local.cw_agent_log_group_name
   retention_in_days = 180
-  tags              = {
-      Name = "aws_emr_template_repository"
+  tags = {
+    Name = "aws_emr_template_repository"
   }
 }
 
 resource "aws_cloudwatch_log_group" "aws_emr_template_repository_cw_bootstrap_loggroup" {
   name              = local.cw_agent_bootstrap_loggrp_name
   retention_in_days = 180
-  tags              = {
-      Name = "aws_emr_template_repository_cw_bootstrap_loggroup"
+  tags = {
+    Name = "aws_emr_template_repository_cw_bootstrap_loggroup"
   }
 }
 
 resource "aws_cloudwatch_log_group" "aws_emr_template_repository_cw_steps_loggroup" {
   name              = local.cw_agent_steps_loggrp_name
   retention_in_days = 180
-  tags              = {
-      Name = "aws_emr_template_repository_cw_steps_loggroup"
+  tags = {
+    Name = "aws_emr_template_repository_cw_steps_loggroup"
   }
 }
 
@@ -113,8 +113,8 @@ resource "aws_s3_bucket_object" "cloudwatch_sh" {
       emr_release = var.emr_release[local.environment]
     }
   )
-  tags              = {
-      Name = "cloudwatch_sh"
+  tags = {
+    Name = "cloudwatch_sh"
   }
 }
 
@@ -129,8 +129,8 @@ resource "aws_s3_bucket_object" "metrics_setup_sh" {
       prometheus_config = format("s3://%s/%s", data.terraform_remote_state.common.outputs.config_bucket.id, aws_s3_bucket_object.prometheus_config.key)
     }
   )
-  tags              = {
-      Name = "metrics_setup_sh"
+  tags = {
+    Name = "metrics_setup_sh"
   }
 }
 
@@ -139,8 +139,8 @@ resource "aws_s3_bucket_object" "metrics_pom" {
   kms_key_id = data.terraform_remote_state.common.outputs.config_bucket_cmk.arn
   key        = "component/aws_emr_template_repository/metrics/pom.xml"
   content    = file("${path.module}/bootstrap_actions/metrics_config/pom.xml")
-  tags              = {
-      Name = "metrics_pom"
+  tags = {
+    Name = "metrics_pom"
   }
 }
 
@@ -149,8 +149,8 @@ resource "aws_s3_bucket_object" "prometheus_config" {
   kms_key_id = data.terraform_remote_state.common.outputs.config_bucket_cmk.arn
   key        = "component/aws_emr_template_repository/metrics/prometheus_config.yml"
   content    = file("${path.module}/bootstrap_actions/metrics_config/prometheus_config.yml")
-  tags              = {
-      Name = "prometheus_config"
+  tags = {
+    Name = "prometheus_config"
   }
 }
 

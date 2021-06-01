@@ -10,6 +10,6 @@ resource "aws_s3_bucket_object" "example_step_name_sh" {
     }
   )
   tags = {
-      Name = "example_step_name_sh"
+    Name = "example_step_name_sh"
   }
 }
