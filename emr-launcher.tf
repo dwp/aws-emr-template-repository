@@ -32,7 +32,7 @@ resource "aws_lambda_function" "aws_emr_template_repository_emr_launcher" {
   }
 
   tags = {
-      Name = "aws_emr_template_repository_emr_launcher"
+    Name = "aws_emr_template_repository_emr_launcher"
   }
 }
 
@@ -40,7 +40,7 @@ resource "aws_iam_role" "aws_emr_template_repository_emr_launcher_lambda_role" {
   name               = "aws_emr_template_repository_emr_launcher_lambda_role"
   assume_role_policy = data.aws_iam_policy_document.aws_emr_template_repository_emr_launcher_assume_policy.json
   tags = {
-      Name = "aws_emr_template_repository_emr_launcher_lambda_role"
+    Name = "aws_emr_template_repository_emr_launcher_lambda_role"
   }
 }
 
@@ -108,7 +108,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_emr_launcher_read_s3_poli
   description = "Allow aws_emr_template_repository to read from S3 bucket"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_emr_launcher_read_s3_policy.json
   tags = {
-      Name = "aws_emr_template_repository_emr_launcher_read_s3_policy"
+    Name = "aws_emr_template_repository_emr_launcher_read_s3_policy"
   }
 }
 
@@ -117,7 +117,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_emr_launcher_runjobflow_p
   description = "Allow aws_emr_template_repository to run job flow"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_emr_launcher_runjobflow_policy.json
   tags = {
-      Name = "aws_emr_template_repository_emr_launcher_runjobflow_policy"
+    Name = "aws_emr_template_repository_emr_launcher_runjobflow_policy"
   }
 }
 
@@ -126,7 +126,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_emr_launcher_pass_role_po
   description = "Allow aws_emr_template_repository to pass role"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_emr_launcher_pass_role_document.json
   tags = {
-      Name = "aws_emr_template_repository_emr_launcher_pass_role_policy"
+    Name = "aws_emr_template_repository_emr_launcher_pass_role_policy"
   }
 }
 

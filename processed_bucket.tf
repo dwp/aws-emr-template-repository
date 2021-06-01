@@ -48,7 +48,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_read_write_processed_buck
   description = "Allow read and write access to the processed bucket"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_write.json
   tags = {
-      Name = "aws_emr_template_repository_read_write_processed_bucket"
+    Name = "aws_emr_template_repository_read_write_processed_bucket"
   }
 }
 

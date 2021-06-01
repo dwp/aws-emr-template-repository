@@ -15,7 +15,7 @@ resource "aws_iam_role" "aws_emr_template_repository" {
   name               = "aws_emr_template_repository"
   assume_role_policy = data.aws_iam_policy_document.ec2_assume_role.json
   tags = {
-      Name = "aws_emr_template_repository"
+    Name = "aws_emr_template_repository"
   }
 }
 
@@ -23,7 +23,7 @@ resource "aws_iam_instance_profile" "aws_emr_template_repository" {
   name = "aws_emr_template_repository"
   role = aws_iam_role.aws_emr_template_repository.id
   tags = {
-      Name = "aws_emr_template_repository"
+    Name = "aws_emr_template_repository"
   }
 }
 
@@ -124,7 +124,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_extra_ssm_properties" {
   description = "Additional properties to allow for SSM and writing logs"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_extra_ssm_properties.json
   tags = {
-      Name = "aws_emr_template_repository_extra_ssm_properties"
+    Name = "aws_emr_template_repository_extra_ssm_properties"
   }
 }
 
@@ -172,7 +172,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_write_logs" {
   description = "Allow writing of aws_emr_template_repository logs"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_write_logs.json
   tags = {
-      Name = "aws_emr_template_repository_write_logs"
+    Name = "aws_emr_template_repository_write_logs"
   }
 }
 
@@ -226,7 +226,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_read_config" {
   description = "Allow reading of aws_emr_template_repository config files"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_read_config.json
   tags = {
-      Name = "aws_emr_template_repository_read_config"
+    Name = "aws_emr_template_repository_read_config"
   }
 }
 
@@ -280,7 +280,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_read_artefacts" {
   description = "Allow reading of aws_emr_template_repository software artefacts"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_read_artefacts.json
   tags = {
-      Name = "aws_emr_template_repository_read_artefacts"
+    Name = "aws_emr_template_repository_read_artefacts"
   }
 }
 
@@ -308,7 +308,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_write_dynamodb" {
   description = "Allows read and write access toaws_emr_template_repository's EMRFS DynamoDB table"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_write_dynamodb.json
   tags = {
-      Name = "aws_emr_template_repository_write_dynamodb"
+    Name = "aws_emr_template_repository_write_dynamodb"
   }
 }
 
@@ -342,7 +342,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_metadata_change" {
   description = "Allow editing of Metadata Options"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_metadata_change.json
   tags = {
-      Name = "aws_emr_template_repository_metadata_change"
+    Name = "aws_emr_template_repository_metadata_change"
   }
 }
 

@@ -6,7 +6,7 @@ resource "aws_acm_certificate" "aws_emr_template_repository" {
     certificate_transparency_logging_preference = "ENABLED"
   }
   tags = {
-      Name = "aws_emr_template_repository"
+    Name = "aws_emr_template_repository"
   }
 }
 
@@ -29,7 +29,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_acm" {
   description = "Allow export of aws-emr-template-repository certificate"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_acm.json
   tags = {
-      Name = "aws_emr_template_repository_acm"
+    Name = "aws_emr_template_repository_acm"
   }
 }
 
@@ -54,7 +54,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_certificates" {
   description = "Allow read access to the Crown-specific subset of the aws_emr_template_repository"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_certificates.json
   tags = {
-      Name = "aws_emr_template_repository_certificates"
+    Name = "aws_emr_template_repository_certificates"
   }
 }
 

@@ -27,7 +27,7 @@ locals {
     for-use-with-amazon-emr-managed-policies = "true"
   }
 
-  emr_cluster_name = "aws-emr-template-repository"
+  emr_cluster_name       = "aws-emr-template-repository"
   env_certificate_bucket = "dw-${local.environment}-public-certificates"
   mgt_certificate_bucket = "dw-${local.management_account[local.environment]}-public-certificates"
   dks_endpoint           = data.terraform_remote_state.crypto.outputs.dks_endpoint[local.environment]
@@ -86,7 +86,7 @@ locals {
 
   amazon_region_domain = "${data.aws_region.current.name}.amazonaws.com"
   endpoint_services    = ["dynamodb", "ec2", "ec2messages", "glue", "kms", "logs", "monitoring", ".s3", "s3", "secretsmanager", "ssm", "ssmmessages"]
-  no_proxy             = "169.254.169.254,${join(",", formatlist("%s.%s", local.endpoint_services, local.amazon_region_domain))}"
+  no_proxy             = "169.254.169.254,${join(",", formatlist("%s.%s", local.endpoint_services, local.amazon_region_domain))},${local.mongo_latest_pushgateway_hostname}"
   ebs_emrfs_em = {
     EncryptionConfiguration = {
       EnableInTransitEncryption = false
@@ -131,6 +131,8 @@ locals {
 
   s3_log_prefix = "emr/aws_emr_template_repository"
 
+  dynamodb_final_step = "temp"
+
   # These should be `false` unless we have agreed this data product is to use the capacity reservations so as not to interfere with existing data products running
   use_capacity_reservation = {
     development = false
@@ -139,10 +141,12 @@ locals {
     preprod     = false
     production  = false
   }
-  
+
   emr_capacity_reservation_preference = local.use_capacity_reservation[local.environment] == true ? "open" : "none"
 
   emr_capacity_reservation_usage_strategy = local.use_capacity_reservation[local.environment] == true ? "use-capacity-reservations-first" : ""
 
   emr_subnet_non_capacity_reserved_environments = "eu-west-2c"
+
+  aws_emr_template_repository_pushgateway_hostname = "${aws_service_discovery_service.aws_emr_template_repository_services.name}.${aws_service_discovery_private_dns_namespace.aws_emr_template_repository_services.name}"
 }

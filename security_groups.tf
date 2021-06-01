@@ -4,7 +4,7 @@ resource "aws_security_group" "aws_emr_template_repository_master" {
   revoke_rules_on_delete = true
   vpc_id                 = data.terraform_remote_state.internal_compute.outputs.vpc.vpc.vpc.id
   tags = {
-      Name = "aws_emr_template_repository_master"
+    Name = "aws_emr_template_repository_master"
   }
 }
 
@@ -14,7 +14,7 @@ resource "aws_security_group" "aws_emr_template_repository_slave" {
   revoke_rules_on_delete = true
   vpc_id                 = data.terraform_remote_state.internal_compute.outputs.vpc.vpc.vpc.id
   tags = {
-      Name = "aws_emr_template_repository_slave"
+    Name = "aws_emr_template_repository_slave"
   }
 }
 
@@ -24,7 +24,7 @@ resource "aws_security_group" "aws_emr_template_repository_common" {
   revoke_rules_on_delete = true
   vpc_id                 = data.terraform_remote_state.internal_compute.outputs.vpc.vpc.vpc.id
   tags = {
-      Name = "aws_emr_template_repository_common"
+    Name = "aws_emr_template_repository_common"
   }
 }
 
@@ -34,7 +34,7 @@ resource "aws_security_group" "aws_emr_template_repository_emr_service" {
   revoke_rules_on_delete = true
   vpc_id                 = data.terraform_remote_state.internal_compute.outputs.vpc.vpc.vpc.id
   tags = {
-      Name = "aws_emr_template_repository_emr_service"
+    Name = "aws_emr_template_repository_emr_service"
   }
 }
 
