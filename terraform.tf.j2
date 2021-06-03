@@ -136,6 +136,10 @@ provider "aws" {
   assume_role {
     role_arn = "arn:aws:iam::${lookup(local.account, local.environment)}:role/${var.assume_role}"
   }
+
+  default_tags {
+    tags = local.common_repo_tags
+  }
 }
 
 provider "aws" {
@@ -146,6 +150,10 @@ provider "aws" {
   assume_role {
     role_arn = "arn:aws:iam::${local.account[local.management_account[local.environment]]}:role/${var.assume_role}"
   }
+
+  default_tags {
+    tags = local.common_repo_tags
+  }
 }
 
 provider "aws" {
@@ -155,6 +163,10 @@ provider "aws" {
 
   assume_role {
     role_arn = "arn:aws:iam::${local.account[local.management_account[local.environment]]}:role/${var.assume_role}"
+  }
+
+  default_tags {
+    tags = local.common_repo_tags
   }
 }
 
@@ -168,18 +180,8 @@ locals {
   account = { {% for key, value in accounts.items() %}
     {{key}} = "{{value}}"{% endfor %}
   }
-}
-
-locals {
 
   environment = terraform.workspace == "default" ? "development" : terraform.workspace
-
-  tags = {
-  {% for key, value in common_tags.items() %}
-    {{key}} = "{{value}}"{% endfor %}
-    Environment  = local.environment
-    Application  = "aws-analytical-dataset-generation"
-  }
 
   env_prefix = {
     development = "dev."
