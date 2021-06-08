@@ -149,4 +149,12 @@ locals {
   emr_subnet_non_capacity_reserved_environments = "eu-west-2c"
 
   aws_emr_template_repository_pushgateway_hostname = "${aws_service_discovery_service.aws_emr_template_repository_services.name}.${aws_service_discovery_private_dns_namespace.aws_emr_template_repository_services.name}"
+
+  aws_emr_template_repository_max_retry_count = {
+    development = "0"
+    qa          = "0"
+    integration = "0"
+    preprod     = "0"
+    production  = "0"
+  }
 }
