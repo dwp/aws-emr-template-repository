@@ -157,6 +157,4 @@ locals {
     preprod     = "0"
     production  = "0"
   }
-  
-  
 }
