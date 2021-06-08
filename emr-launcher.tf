@@ -150,3 +150,16 @@ resource "aws_iam_role_policy_attachment" "aws_emr_template_repository_emr_launc
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
 }
 
+resource "aws_sns_topic_subscription" "aws_emr_template_repository_trigger_sns" {
+  topic_arn = aws_sns_topic.aws_emr_template_repository_cw_trigger_sns.arn
+  protocol  = "lambda"
+  endpoint  = aws_lambda_function.aws_emr_template_repository_emr_launcher.arn
+}
+
+resource "aws_lambda_permission" "aws_emr_template_repository_emr_launcher_subscription" {
+  statement_id  = "CWTriggeraws_emr_template_repositorySNS"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.aws_emr_template_repository_emr_launcher.function_name
+  principal     = "sns.amazonaws.com"
+  source_arn    = aws_sns_topic.aws_emr_template_repository_cw_trigger_sns.arn
+}
