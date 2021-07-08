@@ -14,11 +14,11 @@ resource "aws_lambda_function" "aws_emr_template_repository_emr_relauncher" {
   handler       = "event_handler.handler"
   runtime       = "python3.8"
   source_code_hash = filebase64sha256(
-  format(
-  "%s/dataworks-emr-relauncher-%s.zip",
-  var.dataworks_emr_relauncher_zip["base_path"],
-  var.dataworks_emr_relauncher_zip["version"]
-  )
+    format(
+      "%s/dataworks-emr-relauncher-%s.zip",
+      var.dataworks_emr_relauncher_zip["base_path"],
+      var.dataworks_emr_relauncher_zip["version"]
+    )
   )
   publish = false
   timeout = 60
