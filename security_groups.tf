@@ -205,7 +205,3 @@ resource "aws_security_group_rule" "emr_core_to_core_egress_udp" {
   self              = true
   security_group_id = aws_security_group.aws_emr_template_repository_slave.id
 }
-
-output "aws_emr_template_repository_common_sg" {
-  value = aws_security_group.aws_emr_template_repository_common
-}
