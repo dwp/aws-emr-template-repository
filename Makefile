@@ -44,7 +44,7 @@ terraform-apply: ## Run `terraform apply` from repo root
 
 .PHONY: terraform-workspace-new
 terraform-workspace-new: ## Creates new Terraform workspace with Concourse remote execution
-	declare -a workspace=( qa integration preprod production ) \
+	declare -a workspace=( qa integration preprod production )  && \
 	make bootstrap ; \
 	cp terraform.tf workspaces.tf && \
 	for i in "$${workspace[@]}" ; do \

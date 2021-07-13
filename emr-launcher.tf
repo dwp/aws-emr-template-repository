@@ -163,3 +163,28 @@ resource "aws_lambda_permission" "aws_emr_template_repository_emr_launcher_subsc
   principal     = "sns.amazonaws.com"
   source_arn    = aws_sns_topic.aws_emr_template_repository_cw_trigger_sns.arn
 }
+
+resource "aws_iam_policy" "aws_emr_template_repository_emr_launcher_getsecrets" {
+  name        = "aws_emr_template_repositoryGetSecrets"
+  description = "Allow aws_emr_template_repository function to get secrets"
+  policy      = data.aws_iam_policy_document.aws_emr_template_repository_emr_launcher_getsecrets.json
+}
+
+data "aws_iam_policy_document" "aws_emr_template_repository_emr_launcher_getsecrets" {
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "secretsmanager:GetSecretValue",
+    ]
+
+    resources = [
+      data.terraform_remote_state.internal_compute.outputs.metadata_store_users.aws_emr_template_repository_writer.secret_arn,
+    ]
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "aws_emr_template_repository_emr_launcher_getsecrets" {
+  role       = aws_iam_role.aws_emr_template_repository_emr_launcher_lambda_role.name
+  policy_arn = aws_iam_policy.aws_emr_template_repository_emr_launcher_getsecrets.arn
+}
