@@ -159,6 +159,9 @@ resource "aws_s3_bucket_object" "dynamo_json_file" {
   kms_key_id = data.terraform_remote_state.common.outputs.config_bucket_cmk.arn
   key        = "component/aws_emr_template_repository/dynamo_schema.json"
   content    = file("${path.module}/bootstrap_actions/dynamo_schema.json")
+  tags = {
+    Name = "dynamo_schema"
+  }
 }
 
 resource "aws_s3_bucket_object" "update_dynamo_sh" {
@@ -171,4 +174,7 @@ resource "aws_s3_bucket_object" "update_dynamo_sh" {
       dynamodb_final_step = local.dynamodb_final_step[local.environment]
     }
   )
+  tags = {
+    Name = "update_dynamo"
+  }
 }
