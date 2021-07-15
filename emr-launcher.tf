@@ -9,7 +9,7 @@ variable "emr_launcher_zip" {
 
 resource "aws_lambda_function" "aws_emr_template_repository_emr_launcher" {
   filename      = "${var.emr_launcher_zip["base_path"]}/emr-launcher-${var.emr_launcher_zip["version"]}.zip"
-  function_name = "aws_emr_template_repository_emr_launcher"
+  function_name = "${local.emr_cluster_name}_emr_launcher"
   role          = aws_iam_role.aws_emr_template_repository_emr_launcher_lambda_role.arn
   handler       = "emr_launcher.handler.handler"
   runtime       = "python3.7"
@@ -32,15 +32,15 @@ resource "aws_lambda_function" "aws_emr_template_repository_emr_launcher" {
   }
 
   tags = {
-    Name = "aws_emr_template_repository_emr_launcher"
+    Name = "${local.emr_cluster_name}_emr_launcher"
   }
 }
 
 resource "aws_iam_role" "aws_emr_template_repository_emr_launcher_lambda_role" {
-  name               = "aws_emr_template_repository_emr_launcher_lambda_role"
+  name               = "${local.emr_cluster_name}_emr_launcher_lambda_role"
   assume_role_policy = data.aws_iam_policy_document.aws_emr_template_repository_emr_launcher_assume_policy.json
   tags = {
-    Name = "aws_emr_template_repository_emr_launcher_lambda_role"
+    Name = "${local.emr_cluster_name}_emr_launcher_lambda_role"
   }
 }
 
@@ -104,11 +104,11 @@ data "aws_iam_policy_document" "aws_emr_template_repository_emr_launcher_pass_ro
 }
 
 resource "aws_iam_policy" "aws_emr_template_repository_emr_launcher_read_s3_policy" {
-  name        = "aws_emr_template_repositoryReadS3"
+  name        = "${local.emr_cluster_name}ReadS3"
   description = "Allow aws_emr_template_repository to read from S3 bucket"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_emr_launcher_read_s3_policy.json
   tags = {
-    Name = "aws_emr_template_repository_emr_launcher_read_s3_policy"
+    Name = "${local.emr_cluster_name}_emr_launcher_read_s3_policy"
   }
 }
 

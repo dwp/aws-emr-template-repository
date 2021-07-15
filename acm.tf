@@ -6,7 +6,7 @@ resource "aws_acm_certificate" "aws_emr_template_repository" {
     certificate_transparency_logging_preference = "ENABLED"
   }
   tags = {
-    Name = "aws_emr_template_repository"
+    Name = local.emr_cluster_name
   }
 }
 

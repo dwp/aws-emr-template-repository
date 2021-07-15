@@ -4,27 +4,27 @@ resource "aws_security_group" "aws_emr_template_repository_master" {
   revoke_rules_on_delete = true
   vpc_id                 = data.terraform_remote_state.internal_compute.outputs.vpc.vpc.vpc.id
   tags = {
-    Name = "aws_emr_template_repository_master"
+    Name = "${local.emr_cluster_name}_master"
   }
 }
 
 resource "aws_security_group" "aws_emr_template_repository_slave" {
-  name                   = "aws_emr_template_repository Slave"
+  name                   = "${local.emr_cluster_name} Slave"
   description            = "Contains rules for aws_emr_template_repository slave nodes; most rules are injected by EMR, not managed by TF"
   revoke_rules_on_delete = true
   vpc_id                 = data.terraform_remote_state.internal_compute.outputs.vpc.vpc.vpc.id
   tags = {
-    Name = "aws_emr_template_repository_slave"
+    Name = "${local.emr_cluster_name}_slave"
   }
 }
 
 resource "aws_security_group" "aws_emr_template_repository_common" {
-  name                   = "aws_emr_template_repository Common"
+  name                   = "${local.emr_cluster_name} Common"
   description            = "Contains rules for both aws_emr_template_repository master and aws_emr_template_repository slave nodes"
   revoke_rules_on_delete = true
   vpc_id                 = data.terraform_remote_state.internal_compute.outputs.vpc.vpc.vpc.id
   tags = {
-    Name = "aws_emr_template_repository_common"
+    Name = "${local.emr_cluster_name}_common"
   }
 }
 

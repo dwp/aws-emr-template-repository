@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_failed" {
-  name          = "aws_emr_template_repository_failed"
+  name          = "${local.emr_cluster_name}_failed"
   description   = "Sends failed message to slack when aws_emr_template_repository cluster terminates with errors"
   event_pattern = <<EOF
 {
@@ -14,19 +14,19 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_failed" {
       "TERMINATED_WITH_ERRORS"
     ],
     "name": [
-      "aws-emr-template-repository"
+      "${local.emr_cluster_name}"
     ]
   }
 }
 EOF
 
   tags = {
-    Name = "aws_emr_template_repository_failed"
+    Name = "${local.emr_cluster_name}_failed"
   }
 }
 
 resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_terminated" {
-  name          = "aws_emr_template_repository_terminated"
+  name          = "${local.emr_cluster_name}_terminated"
   description   = "Sends failed message to slack when aws_emr_template_repository cluster terminates by user request"
   event_pattern = <<EOF
 {
@@ -41,7 +41,7 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_terminated" {
       "TERMINATED"
     ],
     "name": [
-      "aws-emr-template-repository"
+      "${local.emr_cluster_name}"
     ],
     "stateChangeReason": [
       "{\"code\":\"USER_REQUEST\",\"message\":\"User request\"}"
@@ -51,12 +51,12 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_terminated" {
 EOF
 
   tags = {
-    Name = "aws_emr_template_repository_terminated"
+    Name = "${local.emr_cluster_name}_terminated"
   }
 }
 
 resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_success" {
-  name          = "aws_emr_template_repository_success"
+  name          = "${local.emr_cluster_name}_success"
   description   = "checks that all steps complete"
   event_pattern = <<EOF
 {
@@ -71,7 +71,7 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_success" {
       "TERMINATED"
     ],
     "name": [
-      "aws-emr-template-repository"
+      "${local.emr_cluster_name}"
     ],
     "stateChangeReason": [
       "{\"code\":\"ALL_STEPS_COMPLETED\",\"message\":\"Steps completed\"}"
@@ -81,12 +81,12 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_success" {
 EOF
 
   tags = {
-    Name = "aws_emr_template_repository_success"
+    Name = "${local.emr_cluster_name}_success"
   }
 }
 
 resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_running" {
-  name          = "aws_emr_template_repository_running"
+  name          = "${local.emr_cluster_name}_running"
   description   = "checks that aws_emr_template_repository is running"
   event_pattern = <<EOF
 {
@@ -101,20 +101,20 @@ resource "aws_cloudwatch_event_rule" "aws_emr_template_repository_running" {
       "RUNNING"
     ],
     "name": [
-      "aws-emr-template-repository"
+      "${local.emr_cluster_name}"
     ]
   }
 }
 EOF
 
   tags = {
-    Name = "aws_emr_template_repository_running"
+    Name = "${local.emr_cluster_name}_running"
   }
 }
 
 resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_failed" {
   count                     = local.aws_emr_template_repository_alerts[local.environment] == true ? 1 : 0
-  alarm_name                = "aws_emr_template_repository_failed"
+  alarm_name                = "${local.emr_cluster_name}_failed"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
   metric_name               = "TriggeredRules"
@@ -129,7 +129,7 @@ resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_failed" {
     RuleName = aws_cloudwatch_event_rule.aws_emr_template_repository_failed.name
   }
   tags = {
-    Name              = "aws_emr_template_repository_failed",
+    Name              = "${local.emr_cluster_name}_failed",
     notification_type = "Error",
     severity          = "Critical"
   }
@@ -137,7 +137,7 @@ resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_failed" {
 
 resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_terminated" {
   count                     = local.aws_emr_template_repository_alerts[local.environment] == true ? 1 : 0
-  alarm_name                = "aws_emr_template_repository_terminated"
+  alarm_name                = "${local.emr_cluster_name}_terminated"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
   metric_name               = "TriggeredRules"
@@ -152,7 +152,7 @@ resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_terminated" 
     RuleName = aws_cloudwatch_event_rule.aws_emr_template_repository_terminated.name
   }
   tags = {
-    Name              = "aws_emr_template_repository_terminated",
+    Name              = "${local.emr_cluster_name}_terminated",
     notification_type = "Information",
     severity          = "High"
   }
@@ -160,7 +160,7 @@ resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_terminated" 
 
 resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_success" {
   count                     = local.aws_emr_template_repository_alerts[local.environment] == true ? 1 : 0
-  alarm_name                = "aws_emr_template_repository_success"
+  alarm_name                = "${local.emr_cluster_name}_success"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
   metric_name               = "TriggeredRules"
@@ -175,7 +175,7 @@ resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_success" {
     RuleName = aws_cloudwatch_event_rule.aws_emr_template_repository_success.name
   }
   tags = {
-    Name              = "aws_emr_template_repository_success",
+    Name              = "${local.emr_cluster_name}_success",
     notification_type = "Information",
     severity          = "Critical"
   }
@@ -183,7 +183,7 @@ resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_success" {
 
 resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_running" {
   count                     = local.aws_emr_template_repository_alerts[local.environment] == true ? 1 : 0
-  alarm_name                = "aws_emr_template_repository_running"
+  alarm_name                = "${local.emr_cluster_name}_running"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
   metric_name               = "TriggeredRules"
@@ -198,7 +198,7 @@ resource "aws_cloudwatch_metric_alarm" "aws_emr_template_repository_running" {
     RuleName = aws_cloudwatch_event_rule.aws_emr_template_repository_running.name
   }
   tags = {
-    Name              = "aws_emr_template_repository_running",
+    Name              = "${local.emr_cluster_name}_running",
     notification_type = "Information",
     severity          = "Critical"
   }
