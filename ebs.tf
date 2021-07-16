@@ -160,7 +160,7 @@ resource "aws_kms_key" "aws_emr_template_repository_ebs_cmk" {
   # that it reads from HBase. It can potentially spill this to disk if it can't
   # hold it all in memory, which is likely given the size of the dataset.
   tags = {
-    Name                  = "aws_emr_template_repository_ebs_cmk"
+    Name                  = "${local.emr_cluster_name}_ebs_cmk"
     ProtectsSensitiveData = "True"
   }
 }

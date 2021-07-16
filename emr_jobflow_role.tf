@@ -12,18 +12,18 @@ data "aws_iam_policy_document" "ec2_assume_role" {
 }
 
 resource "aws_iam_role" "aws_emr_template_repository" {
-  name               = "aws_emr_template_repository"
+  name               = local.emr_cluster_name
   assume_role_policy = data.aws_iam_policy_document.ec2_assume_role.json
   tags = {
-    Name = "aws_emr_template_repository"
+    Name = local.emr_cluster_name
   }
 }
 
 resource "aws_iam_instance_profile" "aws_emr_template_repository" {
-  name = "aws_emr_template_repository"
+  name = local.emr_cluster_name
   role = aws_iam_role.aws_emr_template_repository.id
   tags = {
-    Name = "aws_emr_template_repository"
+    Name = local.emr_cluster_name
   }
 }
 
@@ -211,7 +211,7 @@ data "aws_iam_policy_document" "aws_emr_template_repository_read_config" {
     ]
 
     resources = [
-      "${data.terraform_remote_state.common.outputs.config_bucket_cmk.arn}",
+      data.terraform_remote_state.common.outputs.config_bucket_cmk.arn,
     ]
   }
 }

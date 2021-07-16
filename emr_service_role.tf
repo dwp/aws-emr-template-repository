@@ -44,10 +44,10 @@ data "aws_iam_policy_document" "emr_capacity_reservations" {
 }
 
 resource "aws_iam_role" "aws_emr_template_repository_emr_service" {
-  name               = "aws_emr_template_repository_emr_service"
+  name               = "${local.emr_cluster_name}_emr_service"
   assume_role_policy = data.aws_iam_policy_document.emr_assume_role.json
   tags = {
-    Name = "aws_emr_template_repository_emr_service"
+    Name = "${local.emr_cluster_name}_emr_service"
   }
 }
 
@@ -64,7 +64,7 @@ resource "aws_iam_role_policy_attachment" "emr_attachment_old" {
 }
 
 resource "aws_iam_policy" "emr_capacity_reservations" {
-  name        = "aws_emr_template_repositoryCapacityReservations"
+  name        = "${local.emr_cluster_name}CapacityReservations"
   description = "Allow usage of capacity reservations"
   policy      = data.aws_iam_policy_document.emr_capacity_reservations.json
   tags = {

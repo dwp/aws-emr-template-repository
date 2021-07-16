@@ -22,7 +22,7 @@ locals {
     AutoShutdown = local.auto_shutdown_tag_value[local.environment]
   }
 
-  common_repo_tags = "${merge(module.dataworks_common.common_tags, local.overridden_tags)}"
+  common_repo_tags = merge(module.dataworks_common.common_tags, local.overridden_tags)
   common_emr_tags = {
     for-use-with-amazon-emr-managed-policies = "true"
   }
