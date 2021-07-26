@@ -102,4 +102,4 @@ EOF
   #kick off loop to process all step files
   check_step_dir
 
-) >> /var/log/aws_emr_template_repository/status_metrics_sh.log 2>&1
+) >> /var/log/aws-emr-template-repository/status_metrics_sh.log 2>&1

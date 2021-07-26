@@ -1,10 +1,10 @@
 #!/bin/bash
 
-sudo mkdir -p /var/log/aws_emr_template_repository
+sudo mkdir -p /var/log/aws-emr-template-repository
 sudo mkdir -p /opt/emr
 sudo mkdir -p /opt/shared
 sudo mkdir -p /var/ci
-sudo chown hadoop:hadoop /var/log/aws_emr_template_repository
+sudo chown hadoop:hadoop /var/log/aws-emr-template-repository
 sudo chown hadoop:hadoop /opt/emr
 sudo chown hadoop:hadoop /opt/shared
 sudo chown hadoop:hadoop /var/ci
@@ -38,4 +38,4 @@ chmod u+x /opt/emr/logging.sh
 
     log_wrapper_message "Script downloads completed"
 
-)  >> /var/log/aws_emr_template_repository/download_scripts.log 2>&1
+)  >> /var/log/aws-emr-template-repository/download_scripts.log 2>&1
