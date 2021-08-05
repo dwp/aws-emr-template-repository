@@ -7,7 +7,7 @@ jobs:
           - put: meta
             resource: meta-qa
           - get: aws-emr-template-repository
-            trigger: false
+            trigger: true
             passed:
               - aws-emr-template-repository-qa
           - get: dataworks-behavioural-framework
@@ -51,14 +51,14 @@ jobs:
           inputs:
             - name: previous_success
       - in_parallel:
-        - .: (( inject meta.plan.e2e-tests))
-          config:
-            params:
-              TF_WORKSPACE: qa
-              AWS_ACC: ((aws_account.qa))
-              AWS_ROLE_ARN: arn:aws:iam::((aws_account.qa)):role/ci
-            inputs:
-              - name: previous_success
+          - .: (( inject meta.plan.e2e-tests))
+            config:
+              params:
+                TF_WORKSPACE: qa
+                AWS_ACC: ((aws_account.qa))
+                AWS_ROLE_ARN: arn:aws:iam::((aws_account.qa)):role/ci
+              inputs:
+                - name: previous_success
 
     on_failure:
       do:
@@ -72,6 +72,6 @@ jobs:
         - .: (( inject meta.plan.ami-test-results ))
           task: ami-test-result-success
           config:
-              params:
-                RESULT: SUCCESS
+            params:
+              RESULT: SUCCESS
 
