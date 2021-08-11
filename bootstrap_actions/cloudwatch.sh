@@ -65,6 +65,30 @@ cat > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json <<CWAGEN
             "log_stream_name": "{instance_id}-download-scripts.log",
             "timezone": "UTC"
           },
+          {
+            "file_path": "/var/log/aws-emr-template-repository/download_sql.log",
+            "log_group_name": "$${cwa_bootstrap_loggrp_name}",
+            "log_stream_name": "{instance_id}-download-sql.log",
+            "timezone": "UTC"
+          },
+          {
+            "file_path": "/var/log/aws-emr-template-repository/metrics_setup.log",
+            "log_group_name": "$${cwa_bootstrap_loggrp_name}",
+            "log_stream_name": "{instance_id}-metrics-setup.log",
+            "timezone": "UTC"
+          },
+          {
+            "file_path": "/var/log/aws-emr-template-repository/status_metrics.log",
+            "log_group_name": "$${cwa_bootstrap_loggrp_name}",
+            "log_stream_name": "{instance_id}-status-metrics.log",
+            "timezone": "UTC"
+          },
+          {
+            "file_path": "/var/log/aws-emr-template-repository/update_dynamo.log",
+            "log_group_name": "$${cwa_bootstrap_loggrp_name}",
+            "log_stream_name": "{instance_id}-update-dynamo.log",
+            "timezone": "UTC"
+          }
         ]
       }
     },
