@@ -86,7 +86,7 @@ locals {
 
   amazon_region_domain = "${data.aws_region.current.name}.amazonaws.com"
   endpoint_services    = ["dynamodb", "ec2", "ec2messages", "glue", "kms", "logs", "monitoring", ".s3", "s3", "secretsmanager", "ssm", "ssmmessages"]
-  no_proxy             = "169.254.169.254,${join(",", formatlist("%s.%s", local.endpoint_services, local.amazon_region_domain))},${local.mongo_latest_pushgateway_hostname}"
+  no_proxy             = "169.254.169.254,${join(",", formatlist("%s.%s", local.endpoint_services, local.amazon_region_domain))},${local.aws_emr_template_repository_pushgateway_hostname}"
   ebs_emrfs_em = {
     EncryptionConfiguration = {
       EnableInTransitEncryption = false

@@ -8,7 +8,7 @@ output "aws_emr_template_repository_emr_launcher_lambda" {
 
 output "private_dns" {
   value = {
-    mongo_latest_service_discovery_dns = aws_service_discovery_private_dns_namespace.aws_emr_template_repository_services
-    mongo_latest_service_discovery     = aws_service_discovery_service.aws_emr_template_repository_services
+    aws_emr_template_repository_discovery_dns = aws_service_discovery_private_dns_namespace.aws_emr_template_repository_services
+    aws_emr_template_repository_discovery     = aws_service_discovery_service.aws_emr_template_repository_services
   }
 }
