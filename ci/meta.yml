@@ -1,13 +1,8 @@
 meta:
   plan:
     terraform-common-config:
+      image: terraform-ecr
       config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source:
-            repository: ((dataworks.terraform_repository))
-            tag: ((dataworks.terraform_13_version))
         params:
           TF_INPUT: false
           TF_CLI_ARGS_apply: -lock-timeout=300s
@@ -17,14 +12,8 @@ meta:
     terraform-bootstrap:
       task: terraform-bootstrap
       .: (( inject meta.plan.terraform-common-config ))
+      image: terraform-ecr
       config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source:
-            repository: dwpdigital/jinja-yaml-aws
-            version: 0.0.19
-            tag: 0.0.19
         run:
           path: sh
           args:
@@ -48,13 +37,8 @@ meta:
     terraform-apply:
       task: terraform-apply
       .: (( inject meta.plan.terraform-common-config ))
+      image: terraform-ecr
       config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source:
-            repository: ((dataworks.terraform_repository))
-            tag: ((dataworks.terraform_13_version))
         run:
           path: sh
           dir: aws-emr-template-repository
@@ -146,13 +130,8 @@ meta:
 
     ami-test-results:
       task: ami-test-result
+      image: terraform-ecr
       config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source:
-            repository: ((dataworks.terraform_repository))
-            tag: ((dataworks.terraform_13_version))
         params:
           AWS_DEFAULT_REGION: ((dataworks.aws_region))
           GIT_USERNAME: ((dataworks.concourse_github_username))
@@ -188,13 +167,8 @@ meta:
 
     check-ami-test-results:
       task: check-ami-test-result
+      image: terraform-ecr
       config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source:
-            repository: ((dataworks.terraform_repository))
-            tag: ((dataworks.terraform_13_version))
         params:
           AWS_DEFAULT_REGION: ((dataworks.aws_region))
           GIT_USERNAME: ((dataworks.concourse_github_username))

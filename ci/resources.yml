@@ -79,6 +79,14 @@ resources:
         name: untested-dw-al2-emr-ami-*
         architecture: x86_64
 
+  - name: terraform-ecr
+    type: registry-image-resource
+    source:
+      repository: terraform
+      tag: ((dataworks.terraform_13_version))
+      aws_region: ((dataworks.aws_region))
+      aws_role_arn: arn:aws:iam::((dataworks.aws_management_acc)):role/ci
+
   - name: meta-development
     type: meta
   - name: meta-qa
