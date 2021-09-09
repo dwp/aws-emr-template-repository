@@ -34,6 +34,8 @@ resource "aws_lambda_function" "aws_emr_template_repository_emr_launcher" {
   tags = {
     Name = "${local.emr_cluster_name}_emr_launcher"
   }
+
+  depends_on = [aws_cloudwatch_log_group.aws_emr_template_repository_emr_launcher_log_group]
 }
 
 resource "aws_iam_role" "aws_emr_template_repository_emr_launcher_lambda_role" {
@@ -46,7 +48,7 @@ resource "aws_iam_role" "aws_emr_template_repository_emr_launcher_lambda_role" {
 
 data "aws_iam_policy_document" "aws_emr_template_repository_emr_launcher_assume_policy" {
   statement {
-    sid     = "aws-emr-template-repository-EMRLauncherLambdaAssumeRolePolicy"
+    sid     = "EMRLauncherLambdaAssumeRolePolicy"
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
 
@@ -113,7 +115,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_emr_launcher_read_s3_poli
 }
 
 resource "aws_iam_policy" "aws_emr_template_repository_emr_launcher_runjobflow_policy" {
-  name        = "aws_emr_template_repositoryRunJobFlow"
+  name        = "${local.emr_cluster_name}RunJobFlow"
   description = "Allow aws_emr_template_repository to run job flow"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_emr_launcher_runjobflow_policy.json
   tags = {
@@ -122,7 +124,7 @@ resource "aws_iam_policy" "aws_emr_template_repository_emr_launcher_runjobflow_p
 }
 
 resource "aws_iam_policy" "aws_emr_template_repository_emr_launcher_pass_role_policy" {
-  name        = "aws_emr_template_repositoryPassRole"
+  name        = "${local.emr_cluster_name}PassRole"
   description = "Allow aws_emr_template_repository to pass role"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_emr_launcher_pass_role_document.json
   tags = {
@@ -157,7 +159,7 @@ resource "aws_sns_topic_subscription" "aws_emr_template_repository_trigger_sns" 
 }
 
 resource "aws_lambda_permission" "aws_emr_template_repository_emr_launcher_subscription" {
-  statement_id  = "CWTriggeraws_emr_template_repositorySNS"
+  statement_id  = "${local.emr_cluster_name}CWTriggerSNS"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.aws_emr_template_repository_emr_launcher.function_name
   principal     = "sns.amazonaws.com"
@@ -165,7 +167,7 @@ resource "aws_lambda_permission" "aws_emr_template_repository_emr_launcher_subsc
 }
 
 resource "aws_iam_policy" "aws_emr_template_repository_emr_launcher_getsecrets" {
-  name        = "aws_emr_template_repositoryGetSecrets"
+  name        = "${local.emr_cluster_name}GetSecrets"
   description = "Allow aws_emr_template_repository function to get secrets"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_emr_launcher_getsecrets.json
 }
@@ -187,4 +189,9 @@ data "aws_iam_policy_document" "aws_emr_template_repository_emr_launcher_getsecr
 resource "aws_iam_role_policy_attachment" "aws_emr_template_repository_emr_launcher_getsecrets" {
   role       = aws_iam_role.aws_emr_template_repository_emr_launcher_lambda_role.name
   policy_arn = aws_iam_policy.aws_emr_template_repository_emr_launcher_getsecrets.arn
+}
+
+resource "aws_cloudwatch_log_group" "aws_emr_template_repository_emr_launcher_log_group" {
+  name = "/aws/lambda/aws_emr_template_repository_emr_launcher"
+  retention_in_days = 180
 }
