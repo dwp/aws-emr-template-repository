@@ -3,11 +3,6 @@ resource "aws_emr_security_configuration" "ebs_emrfs_em" {
   configuration = jsonencode(local.ebs_emrfs_em)
 }
 
-#TODO remove this
-output "security_configuration" {
-  value = aws_emr_security_configuration.ebs_emrfs_em
-}
-
 resource "aws_s3_bucket_object" "cluster" {
   bucket = data.terraform_remote_state.common.outputs.config_bucket.id
   key    = "emr/aws_emr_template_repository/cluster.yaml"
@@ -38,8 +33,8 @@ resource "aws_s3_bucket_object" "instances" {
       add_slave_sg       = aws_security_group.aws_emr_template_repository_common.id
       subnet_id = (
         local.use_capacity_reservation[local.environment] == true ?
-        data.terraform_remote_state.internal_compute.outputs.aws_emr_template_repository_subnet.subnets[index(data.terraform_remote_state.internal_compute.outputs.aws_emr_template_repository_subnet.subnets.*.availability_zone, data.terraform_remote_state.common.outputs.ec2_capacity_reservations.emr_m5_16_x_large_2a.availability_zone)].id :
-        data.terraform_remote_state.internal_compute.outputs.aws_emr_template_repository_subnet.subnets[index(data.terraform_remote_state.internal_compute.outputs.aws_emr_template_repository_subnet.subnets.*.availability_zone, local.emr_subnet_non_capacity_reserved_environments)].id
+        data.terraform_remote_state.internal_compute.outputs.emr_template_repository_subnet.subnets[index(data.terraform_remote_state.internal_compute.outputs.emr_template_repository_subnet.subnets.*.availability_zone, data.terraform_remote_state.common.outputs.ec2_capacity_reservations.emr_m5_16_x_large_2a.availability_zone)].id :
+        data.terraform_remote_state.internal_compute.outputs.emr_template_repository_subnet.subnets[index(data.terraform_remote_state.internal_compute.outputs.emr_template_repository_subnet.subnets.*.availability_zone, local.emr_subnet_non_capacity_reserved_environments)].id
       )
       master_sg                           = aws_security_group.aws_emr_template_repository_master.id
       slave_sg                            = aws_security_group.aws_emr_template_repository_slave.id
@@ -85,14 +80,14 @@ resource "aws_s3_bucket_object" "configurations" {
       proxy_https_host                              = data.terraform_remote_state.internal_compute.outputs.internet_proxy.host
       proxy_https_port                              = data.terraform_remote_state.internal_compute.outputs.internet_proxy.port
       environment                                   = local.environment
-      hive_tez_container_size                       = var.hive_tez_container_size
-      hive_tez_java_opts                            = var.hive_tez_java_opts
-      hive_auto_convert_join_noconditionaltask_size = var.hive_auto_convert_join_noconditionaltask_size
-      tez_grouping_min_size                         = var.tez_grouping_min_size
-      tez_grouping_max_size                         = var.tez_grouping_max_size
-      tez_am_resource_memory_mb                     = var.tez_am_resource_memory_mb
-      tez_am_launch_cmd_opts                        = var.tez_am_launch_cmd_opts
-      tez_runtime_io_sort_mb                        = var.tez_runtime_io_sort_mb
+      hive_tez_container_size                       = local.hive_tez_container_size[local.environment]
+      hive_tez_java_opts                            = local.hive_tez_java_opts[local.environment]
+      hive_auto_convert_join_noconditionaltask_size = local.hive_auto_convert_join_noconditionaltask_size[local.environment]
+      tez_grouping_min_size                         = local.tez_grouping_min_size[local.environment]
+      tez_grouping_max_size                         = local.tez_grouping_max_size[local.environment]
+      tez_am_resource_memory_mb                     = local.tez_am_resource_memory_mb[local.environment]
+      tez_am_launch_cmd_opts                        = local.tez_am_launch_cmd_opts[local.environment]
+      tez_runtime_io_sort_mb                        = local.tez_runtime_io_sort_mb[local.environment]
     }
   )
   tags = {

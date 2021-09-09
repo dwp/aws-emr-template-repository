@@ -21,7 +21,7 @@ resource "aws_service_discovery_service" "aws_emr_template_repository_services" 
 }
 
 resource "aws_service_discovery_private_dns_namespace" "aws_emr_template_repository_services" {
-  name = "${local.environment}.aws_emr_template_repository.services.${jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary)["dataworks_domain_name"]}"
+  name = "${local.environment}.${local.emr_cluster_name}.services.${jsondecode(data.aws_secretsmanager_secret_version.terraform_secrets.secret_binary)["dataworks_domain_name"]}"
   vpc  = data.terraform_remote_state.internal_compute.outputs.vpc.vpc.vpc.id
   tags = {
     Name = "aws_emr_template_repository_services"
