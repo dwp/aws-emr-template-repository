@@ -49,3 +49,7 @@ variable "emr_ami_id" {
   description = "AMI ID to use for the HBase EMR nodes"
 }
 
+variable "region" {
+  description = "AWS Region name"
+  default = "eu-west-2"
+}

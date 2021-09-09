@@ -131,7 +131,13 @@ locals {
 
   s3_log_prefix = "emr/aws_emr_template_repository"
 
-  dynamodb_final_step = "temp"
+  dynamodb_final_step = {
+    development = "temp"
+    qa          = "temp"
+    integration = "temp"
+    preprod     = "temp"
+    production  = "temp"
+  }
 
   # These should be `false` unless we have agreed this data product is to use the capacity reservations so as not to interfere with existing data products running
   use_capacity_reservation = {
@@ -157,7 +163,6 @@ locals {
     preprod     = "0"
     production  = "0"
   }
-
 
   hive_tez_container_size = {
     development = "2688"
@@ -300,4 +305,6 @@ locals {
     preprod     = "35"
     production  = "35"
   }
+
+  hive_metastore_location = "data/aws-emr-template-repository"
 }

@@ -115,7 +115,7 @@ data "aws_iam_policy_document" "aws_emr_template_repository_extra_ssm_properties
 }
 
 resource "aws_iam_policy" "aws_emr_template_repository_extra_ssm_properties" {
-  name        = "AwsEmrTemplateRepositoryExtraSSM"
+  name        = "${local.emr_cluster_name}AwsEmrTemplateRepositoryExtraSSM"
   description = "Additional properties to allow for SSM and writing logs"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_extra_ssm_properties.json
   tags = {
@@ -163,7 +163,7 @@ data "aws_iam_policy_document" "aws_emr_template_repository_write_logs" {
 }
 
 resource "aws_iam_policy" "aws_emr_template_repository_write_logs" {
-  name        = "aws-emr-template-repository-WriteLogs"
+  name        = "${local.emr_cluster_name}WriteLogs"
   description = "Allow writing of aws_emr_template_repository logs"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_write_logs.json
   tags = {
@@ -217,7 +217,7 @@ data "aws_iam_policy_document" "aws_emr_template_repository_read_config" {
 }
 
 resource "aws_iam_policy" "aws_emr_template_repository_read_config" {
-  name        = "aws-emr-template-repository-ReadConfig"
+  name        = "${local.emr_cluster_name}ReadConfig"
   description = "Allow reading of aws_emr_template_repository config files"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_read_config.json
   tags = {
@@ -271,7 +271,7 @@ data "aws_iam_policy_document" "aws_emr_template_repository_read_artefacts" {
 }
 
 resource "aws_iam_policy" "aws_emr_template_repository_read_artefacts" {
-  name        = "aws-emr-template-repository-ReadArtefacts"
+  name        = "${local.emr_cluster_name}ReadArtefacts"
   description = "Allow reading of aws_emr_template_repository software artefacts"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_read_artefacts.json
   tags = {
@@ -299,7 +299,7 @@ data "aws_iam_policy_document" "aws_emr_template_repository_write_dynamodb" {
 }
 
 resource "aws_iam_policy" "aws_emr_template_repository_write_dynamodb" {
-  name        = "AwsEmrTemplateRepositoryDynamoDB"
+  name        = "${local.emr_cluster_name}AwsEmrTemplateRepositoryDynamoDB"
   description = "Allows read and write access toaws_emr_template_repository's EMRFS DynamoDB table"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_write_dynamodb.json
   tags = {
@@ -333,7 +333,7 @@ resource "aws_iam_role_policy_attachment" "aws_emr_template_repository_read_writ
 }
 
 resource "aws_iam_policy" "aws_emr_template_repository_metadata_change" {
-  name        = "aws-emr-template-repository-MetadataOptions"
+  name        = "${local.emr_cluster_name}MetadataOptions"
   description = "Allow editing of Metadata Options"
   policy      = data.aws_iam_policy_document.aws_emr_template_repository_metadata_change.json
   tags = {
