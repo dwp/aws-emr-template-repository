@@ -27,7 +27,9 @@ locals {
     for-use-with-amazon-emr-managed-policies = "true"
   }
 
+  #Note that if you change this, you MUST first remove the use of it from all log groups because CI can't (and shouldn't) delete them
   emr_cluster_name       = "aws-emr-template-repository"
+  
   env_certificate_bucket = "dw-${local.environment}-public-certificates"
   mgt_certificate_bucket = "dw-${local.management_account[local.environment]}-public-certificates"
   dks_endpoint           = data.terraform_remote_state.crypto.outputs.dks_endpoint[local.environment]
