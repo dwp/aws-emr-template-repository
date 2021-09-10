@@ -4,7 +4,7 @@ data "aws_secretsmanager_secret_version" "terraform_secrets" {
 }
 
 resource "aws_service_discovery_service" "aws_emr_template_repository_services" {
-  name = "aws_emr_template_repository-pushgateway"
+  name = "${local.emr_cluster_name}-pushgateway"
 
   dns_config {
     namespace_id = aws_service_discovery_private_dns_namespace.aws_emr_template_repository_services.id

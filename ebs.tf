@@ -166,7 +166,7 @@ resource "aws_kms_key" "aws_emr_template_repository_ebs_cmk" {
 }
 
 resource "aws_kms_alias" "aws_emr_template_repository_ebs_cmk" {
-  name          = "alias/aws_emr_template_repository_ebs_cmk"
+  name          = "alias/${local.emr_cluster_name}_ebs_cmk"
   target_key_id = aws_kms_key.aws_emr_template_repository_ebs_cmk.key_id
 }
 

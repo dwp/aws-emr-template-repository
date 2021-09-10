@@ -49,7 +49,7 @@
   push_metric() {
     log_wrapper_message "Sending to push gateway with value $1"
 
-    cat << EOF | curl --data-binary @- "http://${aws_emr_template_repository_pushgateway_hostname}:9091/metrics/job/aws_emr_template_repository"
+    cat << EOF | curl --data-binary @- "http://${aws_emr_template_repository_pushgateway_hostname}:9091/metrics/job/${emr_cluster_name}"
                 aws_emr_template_repository_status{snapshot_type="$SNAPSHOT_TYPE", export_date="$EXPORT_DATE", cluster_id="$CLUSTER_ID", component="AWS_EMR_TEMPLATE_REPOSITORY", correlation_id="$CORRELATION_ID"} $1
 EOF
   }

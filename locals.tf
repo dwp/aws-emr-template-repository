@@ -123,13 +123,13 @@ locals {
     production  = "TERMINATE_CLUSTER"
   }
 
-  cw_agent_namespace                   = "/app/aws_emr_template_repository"
-  cw_agent_log_group_name              = "/app/aws_emr_template_repository"
-  cw_agent_bootstrap_loggrp_name       = "/app/aws_emr_template_repository/bootstrap_actions"
-  cw_agent_steps_loggrp_name           = "/app/aws_emr_template_repository/step_logs"
+  cw_agent_namespace                   = "/app/${local.emr_cluster_name}"
+  cw_agent_log_group_name              = "/app/${local.emr_cluster_name}"
+  cw_agent_bootstrap_loggrp_name       = "/app/${local.emr_cluster_name}/bootstrap_actions"
+  cw_agent_steps_loggrp_name           = "/app/${local.emr_cluster_name}/step_logs"
   cw_agent_metrics_collection_interval = 60
 
-  s3_log_prefix = "emr/aws_emr_template_repository"
+  s3_log_prefix = "emr/${local.emr_cluster_name}"
 
   dynamodb_final_step = {
     development = "temp"
