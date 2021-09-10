@@ -26,7 +26,7 @@ resource "aws_lambda_function" "aws_emr_template_repository_emr_launcher" {
   environment {
     variables = {
       EMR_LAUNCHER_CONFIG_S3_BUCKET = data.terraform_remote_state.common.outputs.config_bucket.id
-      EMR_LAUNCHER_CONFIG_S3_FOLDER = "emr/aws_emr_template_repository"
+      EMR_LAUNCHER_CONFIG_S3_FOLDER = "emr/${local.emr_cluster_name}"
       EMR_LAUNCHER_LOG_LEVEL        = "debug"
     }
   }
@@ -64,7 +64,7 @@ data "aws_iam_policy_document" "aws_emr_template_repository_emr_launcher_read_s3
       "s3:GetObject",
     ]
     resources = [
-      format("arn:aws:s3:::%s/emr/aws_emr_template_repository/*", data.terraform_remote_state.common.outputs.config_bucket.id)
+      format("arn:aws:s3:::%s/emr/${local.emr_cluster_name}/*", data.terraform_remote_state.common.outputs.config_bucket.id)
     ]
   }
   statement {
