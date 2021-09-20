@@ -33,6 +33,7 @@ resources:
     source:
       owner: dwp
       repository: emr-launcher
+      access_token: ((dataworks-secrets.concourse_github_pat))
     check_every: 1h
     webhook_token: ((dataworks.concourse_github_webhook_token))
 
@@ -41,6 +42,7 @@ resources:
     source:
       owner: dwp
       repository: dataworks-emr-relauncher
+      access_token: ((dataworks-secrets.concourse_github_pat))
     check_every: 5m
     webhook_token: ((dataworks.concourse_github_webhook_token))
 
