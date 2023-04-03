@@ -192,6 +192,6 @@ resource "aws_iam_role_policy_attachment" "aws_emr_template_repository_emr_launc
 }
 
 resource "aws_cloudwatch_log_group" "aws_emr_template_repository_emr_launcher_log_group" {
-  name = "/aws/lambda/aws_emr_template_repository_emr_launcher"
+  name              = "/aws/lambda/aws_emr_template_repository_emr_launcher"
   retention_in_days = 180
 }
