@@ -1,3 +1,6 @@
+# DO NOT USE THIS REPO - MIGRATED TO GITLAB
+
+
 # aws-emr-template-repository
 
 ## A template repository for building EMR cluster in AWS
